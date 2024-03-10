@@ -1,12 +1,12 @@
 //подключение футера и хедера
-import header from "./components/header"; 
-import footer from "./components/footer";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 
 function App() {
   return (
     <div className="wrapper">
-      <header />
-      <footer />
+      <Header />
+      <Footer />
     </div>
   );
 }
