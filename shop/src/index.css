@@ -1,0 +1,78 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body{
+  background-color: #fff;
+  color: #222;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 300;
+}
+
+.wrapper{
+  width: 1280px;
+  margin: 50px auto;
+}
+
+header .logo{
+  font-weight: 600;
+  font-size: 20px;
+}
+
+header ul.nav{
+  float: right;
+  list-style: none;
+}
+
+header ul.nav li{
+  display: inline;
+  margin-left: 25px;
+  cursor: pointer;
+  transition: opacity 0.5s ease;
+}
+
+header ul.nav li:hover{
+  opacity: 0.5;
+}
+
+header .presentation{
+  margin: 50px 0;
+  background: url('./img/bg.jpg') no-repeat;
+  width: 100%;
+  height: 500px;
+  background-size: cover;
+  background-position: center center;
+  background-blend-mode: multiply; /* наложение цвета */
+  background-color: #bcbcbc; /* наложение дополнительного цвета */
+  position: relative;
+}
+
+header .presentation::after{
+  content: 'Лучшие товары';
+  position: absolute;
+  top: 100px;
+  left: 50px;
+  width: 300px;
+  font-size: 40px;
+  font-weight: 600;
+  color: #fff;
+}
+
+header .presentation::before{
+  content: 'по низким ценам';
+  position: absolute;
+  top: 250px;
+  left: 50px;
+  width: 300px;
+  font-size: 15px;
+  font-weight: 300;
+  color: #fff;
+}
+
+footer{
+  text-align: center;
+  margin-top: 100px;
+}
