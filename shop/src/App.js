@@ -1,14 +1,49 @@
-//подключение футера и хедера
-import Header from "./components/Header";
-import Footer from "./components/Footer";
+import React from "react"
+import Header from "./components/Header"
+import Footer from "./components/Footer"
+import Items from "./components/Items"
 
-function App() {
-  return (
-    <div className="wrapper">
-      <Header />
-      <Footer />
-    </div>
-  );
+class App extends React.Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      items: [
+        {
+          id: 1,
+          title: 'Товар 1',
+          img:'',
+          desc: 'Lorem ipsum dolor sit amet.',
+          category: 'ex',
+          price: '49.99'
+        },
+        {
+          id: 2,
+          title: 'Товар 2',
+          img:'',
+          desc: 'Lorem ipsum dolor sit amet.',
+          category: 'ex',
+          price: '49.99'
+        },
+        {
+          id: 3,
+          title: 'Товар 3',
+          img:'',
+          desc: 'Lorem ipsum dolor sit amet.',
+          category: 'ex',
+          price: '49.99'
+        },
+      ]
+    }
+  }
+  render() {
+    return (
+      <div className="wrapper">
+        <Header />
+        <Items items={this.state.items} />
+        <Footer />
+      </div>
+    );
+  }
 }
 
 export default App;
