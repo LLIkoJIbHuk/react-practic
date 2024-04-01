@@ -44,7 +44,8 @@ header .shop-cart-button{
   transition: color 500ms ease;
 }
 
-header .shop-cart-button:hover{
+header .shop-cart-button:hover,
+header .shop-cart-button.active{
   color: #dc3d3d;
 }
 
