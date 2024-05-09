@@ -6,7 +6,7 @@ export class Order extends Component {
       <div className='item'>
         <img src={"./img/" + this.props.item.img} alt=''/>
         <h2>{this.props.item.title}</h2>
-        <b>{this.props.item.price}</b>
+        <p>{this.props.item.price}</p>
       </div>
     )
   }
