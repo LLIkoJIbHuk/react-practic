@@ -48,7 +48,13 @@ class App extends React.Component {
   }
 
   addToOrder(item) {
-    this.setState({orders: [...this.state.orders, item]})
+    let isInArray = false
+    this.state.orders.forEach(el => {
+      if(el.id === item.id)
+        isInArray = true //проверка на повтор id
+    })
+    if(!isInArray) //если нет текущего элемента в массиве
+      this.setState({orders: [...this.state.orders, item]})
   }
 }
 
