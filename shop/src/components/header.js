@@ -5,7 +5,7 @@ import Order from './Order';
 const showOrders = (props) => {
   return(<div>
     {props.orders.map(el => (
-      <Order key={el.id} item={el} />
+      <Order onDelete={props.onDelete} key={el.id} item={el} />
     ))}
   </div>)
 }
