@@ -2,6 +2,7 @@ import React from "react"
 import Header from "./components/Header"
 import Footer from "./components/Footer"
 import Items from "./components/Items"
+import Categories from "./components/Categories"
 
 class App extends React.Component {
   constructor(props){
@@ -14,7 +15,7 @@ class App extends React.Component {
           title: 'Товар 1',
           img:'pr1.png',
           desc: 'Lorem ipsum dolor sit amet.',
-          category: 'ex',
+          category: 'chairs',
           price: '49.99'
         },
         {
@@ -22,7 +23,7 @@ class App extends React.Component {
           title: 'Товар 2',
           img:'pr2.png',
           desc: 'Lorem ipsum dolor sit amet.',
-          category: 'ex',
+          category: 'tables',
           price: '49.99'
         },
         {
@@ -30,7 +31,15 @@ class App extends React.Component {
           title: 'Товар 3',
           img:'pr3.png',
           desc: 'Lorem ipsum dolor sit amet.',
-          category: 'ex',
+          category: 'light',
+          price: '49.99'
+        },
+        {
+          id: 4,
+          title: 'Товар 4',
+          img:'pr1.png',
+          desc: 'Lorem ipsum dolor sit amet.',
+          category: 'sofa',
           price: '49.99'
         },
       ]
@@ -42,6 +51,7 @@ class App extends React.Component {
     return (
       <div className="wrapper">
         <Header orders={this.state.orders} onDelete={this.deleteOrder} />
+        <Categories  />
         <Items items={this.state.items} onAdd={this.addToOrder} />
         <Footer />
       </div>
