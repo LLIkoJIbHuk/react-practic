@@ -17,5 +17,8 @@ module.exports = {
       'warn',
       { allowConstantExport: true },
     ],
+    "semi": ["error", "always", {"omitLastInOneLineBlock": false}], //проставляет ;
+    "comma-dangle": ["error", "never"], //не должно быть висячей запятой
+    quotes: ["error", "single"] //преобразует к единому стилю "" в ''
   },
 }
