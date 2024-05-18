@@ -1,10 +1,12 @@
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
-    <div></div> 
+    <>
+      <h1>Заголовок</h1>
+      <p>Текст</p>
+    </> 
   );
 }
 
