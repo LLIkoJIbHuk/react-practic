@@ -1,4 +1,5 @@
-import './App.css'
+import './App.css';
+import Button from './components/Buttton/Button';
 
 function App() {
 
@@ -6,6 +7,7 @@ function App() {
     <>
       <h1>Заголовок</h1>
       <p>Текст</p>
+      <Button/>
     </> 
   );
 }

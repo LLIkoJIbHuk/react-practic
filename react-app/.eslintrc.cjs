@@ -17,7 +17,7 @@ module.exports = {
       'warn',
       { allowConstantExport: true },
     ],
-    "semi": ["error", "always", {"omitLastInOneBlock": false}], // ; в конце строки
+    "semi": ["error", "always"], // ; в конце строки
     "comma-dangle": ["error", "never"], // не должно быть висящей ,
     quotes: ["error", "single"] // одиночные ' '
   },
