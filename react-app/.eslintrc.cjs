@@ -17,8 +17,9 @@ module.exports = {
       'warn',
       { allowConstantExport: true },
     ],
-    "semi": ["error", "always"], // ; в конце строки
-    "comma-dangle": ["error", "never"], // не должно быть висящей ,
-    quotes: ["error", "single"] // одиночные ' '
+    "semi": ["error", "always", {'omitLastInOneLineBlock': false}], 
+    "comma-dangle": ["error", "never"], 
+    quotes: ["error", "single"],
+    'react/prop-types': [0] //выключена проверка типов пропсов
   },
 }
