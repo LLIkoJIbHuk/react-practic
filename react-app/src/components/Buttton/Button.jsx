@@ -11,7 +11,7 @@ function Button() {
   };
 
   return (
-      <button onClick={clicked} className='button accent'>{text}</button>      
+    <button onClick={clicked} className='button accent'>{text}</button>      
   );
 }
 
