@@ -5,7 +5,7 @@ function JournalAddButton() {
 
   return (
     <CardButton className="jouranl-add">
-      Новое воспоминание
+      <img src="/plus.png" alt="plus-button" /> Новое воспоминание
     </CardButton>
   );
 }
