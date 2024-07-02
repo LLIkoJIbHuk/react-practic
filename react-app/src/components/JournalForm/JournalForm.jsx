@@ -3,8 +3,10 @@ import './JournalForm.css';
 import Button from '../Buttton/Button';
 
 function JournalForm() {
-
   const [inputData, setInputData] = useState('');
+  const [state, setState] = useState({
+    age: 31
+  });
 
   const inputChange = (event) => {
     setInputData(event.target.value);
@@ -13,6 +15,8 @@ function JournalForm() {
 
   const addJournalItem = (e) => {
     e.preventDefault();
+    state.age = 40;
+    setState({...state});
     const formData = new FormData(e.target);
     const formProps = Object.fromEntries(formData);
     console.log(formProps);
@@ -20,6 +24,7 @@ function JournalForm() {
 
   return (
     <form className='journal-form' onSubmit={addJournalItem}>
+      {state.age}
       <input type='text' name='title' />
       <input type='date' name='date' />
       <input type='text' name='tag' value={inputData} onChange={inputChange} />{/* Отслеживаются изменения и записываются в состояние inputData */}
