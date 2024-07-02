@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import './App.css';
 import Button from './components/Buttton/Button';
 import CardButton from './components/CardButton/CardButton';
@@ -23,8 +24,11 @@ function App() {
     }
   ];
 
+  const [inputData, setInputData] = useState('');
+
   const inputChange = (event) => {
-    console.log(event.target.value);
+    setInputData(event.target.value);
+    console.log(inputData);
   };
 
   return (
@@ -50,7 +54,7 @@ function App() {
         </JournalList>
       </LeftPanel>
       <Body>
-        <input type='text' onChange={inputChange} />
+        <input type='text' value={inputData} onChange={inputChange} />{/* Отслеживаются изменения и записываются в состояние inputData */}
       </Body>
       <Button/>
     </div> 
