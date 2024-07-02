@@ -3,7 +3,7 @@ import './JournalForm.css';
 import Button from '../Buttton/Button';
 
 function JournalForm() {
-  
+
   const [inputData, setInputData] = useState('');
 
   const inputChange = (event) => {
@@ -24,7 +24,7 @@ function JournalForm() {
       <input type='date' name='date' />
       <input type='text' name='tag' value={inputData} onChange={inputChange} />{/* Отслеживаются изменения и записываются в состояние inputData */}
       <textarea name='post' id='' cols='30' rows='10'></textarea>
-      <Button text='Сохранить'/>
+      <Button text='Сохранить' onClick={() => {console.log('Нажатие');}}/>
     </form>
   );
 }
