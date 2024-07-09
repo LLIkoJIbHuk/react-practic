@@ -1,10 +1,8 @@
 import { useState } from 'react';
 import './App.css';
-import CardButton from './components/CardButton/CardButton';
 import Header from './components/Header/Header';
 import JournalAddButton from './components/JournalAddButton/JournalAddButton';
 import JournalForm from './components/JournalForm/JournalForm';
-import JournalItem from './components/JournalItem/JournalItem';
 import JournalList from './components/JournalList/JournalList';
 import Body from './layouts/Body/Body';
 import LeftPanel from './layouts/LeftPanel/LeftPanel';
@@ -38,35 +36,12 @@ function App() {
     }]);
   };
 
-  const sortItems = (a, b) => {
-		if (a.date < b.date) {
-			return 1;
-		} else {
-			return -1;
-		}
-	};
-
-  let list = <p>Записей пока нет, добавьте первую</p>;
-  if (items.length > 0){
-    list = items.sort(sortItems).map(el => (
-			<CardButton key={el.id}>
-        <JournalItem
-          title={el.title}
-          text={el.text}
-          date={el.date}
-        />
-      </CardButton>
-    ));
-  }
-
   return (
     <div className='app'>
       <LeftPanel>
         <Header/>
         <JournalAddButton/>
-        <JournalList>
-          {list}
-        </JournalList>
+        <JournalList items={items} />
       </LeftPanel>
       <Body>
         <JournalForm onSubmit={addItem}/>
