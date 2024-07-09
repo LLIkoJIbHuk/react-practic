@@ -10,18 +10,18 @@ import Body from './layouts/Body/Body';
 import LeftPanel from './layouts/LeftPanel/LeftPanel';
 
 const INITIAL_DATA = [
-    {
-      id: 1,
-      title: 'Подготовка к обновлению курсов',
-      text: 'Горные походы открывают удивительные природные ландшафт',
-      data: new Date()
-    },
-    {
-      id: 2,
-      title: 'Поход в годы',
-      text: 'Думал, что очень много времени',
-      data: new Date()
-    }
+    // {
+    //   id: 1,
+    //   title: 'Подготовка к обновлению курсов',
+    //   text: 'Горные походы открывают удивительные природные ландшафт',
+    //   data: new Date()
+    // },
+    // {
+    //   id: 2,
+    //   title: 'Поход в годы',
+    //   text: 'Думал, что очень много времени',
+    //   data: new Date()
+    // }
   ];
 
 function App() {
@@ -46,21 +46,26 @@ function App() {
 		}
 	};
 
+  let list = <p>Записей пока нет, добавьте первую</p>;
+  if (items.length > 0){
+    list = items.sort(sortItems).map(el => (
+			<CardButton key={el.id}>
+        <JournalItem
+          title={el.title}
+          text={el.text}
+          date={el.date}
+        />
+      </CardButton>
+    ));
+  }
+
   return (
     <div className='app'>
       <LeftPanel>
         <Header/>
         <JournalAddButton/>
         <JournalList>
-          {items.sort(sortItems).map(el => (
-						<CardButton key={el.id}>
-              <JournalItem
-                title={el.title}
-                text={el.text}
-                date={el.date}
-              />
-            </CardButton>
-          ))}
+          {list}
         </JournalList>
       </LeftPanel>
       <Body>
