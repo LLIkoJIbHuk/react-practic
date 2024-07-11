@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 import Header from './components/Header/Header';
 import JournalAddButton from './components/JournalAddButton/JournalAddButton';
@@ -7,24 +7,21 @@ import JournalList from './components/JournalList/JournalList';
 import Body from './layouts/Body/Body';
 import LeftPanel from './layouts/LeftPanel/LeftPanel';
 
-const INITIAL_DATA = [
-    // {
-    //   id: 1,
-    //   title: 'Подготовка к обновлению курсов',
-    //   text: 'Горные походы открывают удивительные природные ландшафт',
-    //   data: new Date()
-    // },
-    // {
-    //   id: 2,
-    //   title: 'Поход в годы',
-    //   text: 'Думал, что очень много времени',
-    //   data: new Date()
-    // }
-  ];
-
 function App() {
   {/* Создали состояние */}
-  const [items, setItems] = useState(INITIAL_DATA);
+  const [items, setItems] = useState([]);
+
+  {/*Заставляем выполнить 1 раз во время появления компонента*/}
+  useEffect(() => {
+    {/*Если есть данные - парсим; устанавливаем item*/}
+    const data = JSON.parse(localStorage.getItem('data'));
+    if (data) {
+      setItems(data.map(item => ({
+        ...item,
+        date: new Date(item.date)
+      })));
+  }
+  }, []);
 
   {/* Функция для установки нового состояния */}
   const addItem = item => {
