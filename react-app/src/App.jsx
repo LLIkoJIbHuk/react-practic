@@ -23,10 +23,19 @@ function App() {
   }
   }, []);
 
+  {/*Устанавливаем item по ключу data, передаем строку*/}
+  useEffect(() => {
+    if(items.length){
+      console.log('Запись');
+      localStorage.setItem('data', JSON.stringify(items));
+    }
+  }, [items]);
+  {/*Проверка делается только внутри хука*/}
+
   {/* Функция для установки нового состояния */}
   const addItem = item => {
     setItems(oldItems => [...oldItems, {
-      text: item.text,
+      post: item.post,
       title: item.title,
       date: new Date(item.date),
       id: oldItems.length > 0 ? Math.max(...oldItems.map(i => i.id)) + 1 : 1
