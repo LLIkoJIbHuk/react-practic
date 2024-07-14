@@ -31,7 +31,7 @@ function JournalForm({onSubmit}) {
       onSubmit(values);
       dispatchForm({type: 'CLEAR'});
     }
-  }, [isFormReadyToSubmit, values, onSubmit]);
+  }, [isFormReadyToSubmit]);
 
   const onChange = (e) => {
     dispatchForm({type: 'SET_VALUE', payload: {[e.target.name]: e.target.value}});
