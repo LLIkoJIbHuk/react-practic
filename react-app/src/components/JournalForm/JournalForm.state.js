@@ -19,8 +19,9 @@ export function formReducer(state, action) {
     /* Установка значений */
     case 'SET_VALUE':
       return {...state, values: {...state.values, ...action.payload}};
+    /* Убираем повторное срабатываение отправки - isFormReadyToSubmit: false */
     case 'CLEAR':
-      return {...state, values: INITIAL_STATE.values};
+      return {...state, values: INITIAL_STATE.values, isFormReadyToSubmit: false};
     /* Сброс валидности */
     case 'RESET_VALIDITY':
       return {...state, isValid: INITIAL_STATE.isValid};
