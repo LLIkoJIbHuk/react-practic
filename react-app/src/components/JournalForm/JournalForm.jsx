@@ -58,7 +58,7 @@ function JournalForm({onSubmit}) {
         <input type='date' name='date' onChange={onChange} value={values.date} id="date" className={cn(styles['input'], {
           [styles['invalid']] : !isValid.date
         })}/>
-      </div>
+      </div> 
       <div className={styles['form-row']}>
         <label htmlFor="tag" className={styles['form-label']}>
           <img src='/folder.svg' alt='Иконка папки'/>
