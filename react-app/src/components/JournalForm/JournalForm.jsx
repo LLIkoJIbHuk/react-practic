@@ -31,7 +31,7 @@ function JournalForm({onSubmit}) {
       onSubmit(values);
       dispatchForm({type: 'CLEAR'});
     }
-  }, [isFormReadyToSubmit, values, onSubmit]);
+  }, [isFormReadyToSubmit]);
 
   const onChange = (e) => {
     dispatchForm({type: 'SET_VALUE', payload: {[e.target.name]: e.target.value}});
@@ -55,7 +55,7 @@ function JournalForm({onSubmit}) {
           <img src='/calendar.svg' alt='Иконка календаря'/>
           <span>Дата</span>
         </label>
-        <input type='date' onChange={onChange} name='date' value={values.date} id="date" className={cn(styles['input'], {
+        <input type='date' name='date' onChange={onChange} value={values.date} id="date" className={cn(styles['input'], {
           [styles['invalid']] : !isValid.date
         })}/>
       </div>
@@ -64,10 +64,10 @@ function JournalForm({onSubmit}) {
           <img src='/folder.svg' alt='Иконка папки'/>
           <span>Метки</span>
         </label>
-        <input type='text' onChange={onChange} id="tag" value={values.tag} name='tag' className={styles['input']} />
+        <input type='text'  id="tag" onChange={onChange} value={values.tag} name='tag' className={styles['input']} />
       </div>
       
-      <textarea name='post' onChange={onChange} id='' value={values.post} cols='30' rows='10' className={cn(styles['input'], {
+      <textarea name='post' id='' onChange={onChange} value={values.post} cols='30' rows='10' className={cn(styles['input'], {
           [styles['invalid']] : !isValid.post
         })}></textarea>
       <Button text='Сохранить'/>

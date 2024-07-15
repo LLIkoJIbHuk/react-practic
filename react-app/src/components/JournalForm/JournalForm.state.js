@@ -19,9 +19,8 @@ export function formReducer(state, action) {
     /* Установка значений */
     case 'SET_VALUE':
       return {...state, values: {...state.values, ...action.payload}};
-    /* Убираем повторное срабатываение отправки - isFormReadyToSubmit: false */
     case 'CLEAR':
-      return {...state, values: INITIAL_STATE.values, isFormReadyToSubmit: false};
+      return {...state, values: INITIAL_STATE.values};
     /* Сброс валидности */
     case 'RESET_VALIDITY':
       return {...state, isValid: INITIAL_STATE.isValid};
@@ -29,10 +28,8 @@ export function formReducer(state, action) {
       const titleValidity = state.values.title?.trim().length;
       const postValidity = state.values.post?.trim().length;
       const dateValidity = state.values.date;
-      return { 
+      return {
         ...state,
-        /* Храним состояние в state */
-        values: action.payload,
         /* Ставим правильную валидность (замена if-else) */
         isValid: {
           post: postValidity,
