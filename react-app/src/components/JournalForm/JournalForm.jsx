@@ -4,7 +4,7 @@ import Button from '../Buttton/Button';
 import cn from 'classnames';
 import { formReducer, INITIAL_STATE } from './JournalForm.state';
 
-function JournalForm({onSubmit}) {
+function JournalForm({onSubmit}) { 
 
   const [formState, dispatchForm] = useReducer(formReducer, INITIAL_STATE);
   {/*Деструктурируем formState*/}
