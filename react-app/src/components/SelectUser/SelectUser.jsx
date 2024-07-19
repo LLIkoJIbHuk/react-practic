@@ -1,4 +1,9 @@
+import { useContext, useId } from 'react';
+import { UserContext } from '../../context/user.context';
+
 function SelectUser(changedUser) {
+
+  const { userId } = useContext(UserContext);
 
   const changeUser = (e) => {
     changedUser(e.target.value);
@@ -6,7 +11,7 @@ function SelectUser(changedUser) {
   };
 
   return (
-      <select name="user" id="user" onChange={changeUser} >
+      <select name="user" id="user" value={userId} onChange={changeUser} >
         <option value="1">Пользователь1</option>
         <option value="2">Пользователь2</option>
       </select>

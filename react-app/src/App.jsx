@@ -33,7 +33,7 @@ function App() {
   };
 
   return (
-    <UserContext.Provider value={{userId: 1}} >
+    <UserContext.Provider value={{userId: 2}} >
       <div className='app'>
         <LeftPanel>
           <Header/>
