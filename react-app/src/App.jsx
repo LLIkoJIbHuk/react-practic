@@ -7,7 +7,6 @@ import Body from './layouts/Body/Body';
 import LeftPanel from './layouts/LeftPanel/LeftPanel';
 import { useLocalStorage } from './hooks/use-localstorage.hook';
 import { UserContext } from './context/user.context';
-import { useState } from 'react';
 
 function mapItems(items){
   if(!items){
@@ -20,8 +19,8 @@ function mapItems(items){
 }
 
 function App() {
+  {/* Создали состояние */}
   const [items, setItems] = useLocalStorage('data');
-  const [userId, setUserId] = useState(1);
 
   {/* Функция для установки нового состояния */}
   const addItem = item => {
@@ -34,7 +33,7 @@ function App() {
   };
 
   return (
-    <UserContext.Provider value={{userId, setUserId }} >
+    <UserContext.Provider value={{userId: 2}} >
       <div className='app'>
         <LeftPanel>
           <Header/>
