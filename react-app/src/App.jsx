@@ -20,14 +20,14 @@ function mapItems(items){
 
 function App() {
   {/* Создали состояние */}
-  const [items, setItems] = useLocalStorage('data');
+  const [items, setItems] = useLocalStorage('data', []);
 
   {/* Функция для установки нового состояния */}
   const addItem = item => {
-    setItems([...mapItems(items), {
+    setItems([...mapItems(items || []), {
       ...item,
       date: new Date(item.date),
-      id: items.length > 0 ? Math.max(...items.map(i => i.id)) + 1 : 1
+      id: (items && items.length > 0) ? Math.max(...items.map(i => i.id)) + 1 : 1
     }]);
   };
 
