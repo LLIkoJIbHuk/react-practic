@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import './App.css';
 import Header from './components/Header/Header';
 import JournalAddButton from './components/JournalAddButton/JournalAddButton';
@@ -7,7 +6,7 @@ import JournalList from './components/JournalList/JournalList';
 import Body from './layouts/Body/Body';
 import LeftPanel from './layouts/LeftPanel/LeftPanel';
 import { useLocalStorage } from './hooks/use-localstorage.hook';
-import { UserContext } from './context/user.context';
+import { UserContextProvider } from './context/user.context';
 
 function mapItems(items){
   if(!items){
@@ -21,41 +20,19 @@ function mapItems(items){
 
 function App() {
   {/* Создали состояние */}
-  const [items, setItems] = useState([]);
-
-  {/*Заставляем выполнить 1 раз во время появления компонента*/}
-  useEffect(() => {
-    {/*Если есть данные - парсим; устанавливаем item*/}
-    const data = JSON.parse(localStorage.getItem('data'));
-    if (data) {
-      setItems(data.map(item => ({
-        ...item,
-        date: new Date(item.date)
-      })));
-  }
-  }, []);
-
-  {/*Устанавливаем item по ключу data, передаем строку*/}
-  useEffect(() => {
-    if(items.length){
-      console.log('Запись');
-      localStorage.setItem('data', JSON.stringify(items));
-    }
-  }, [items]);
-  {/*Проверка делается только внутри хука*/}
+  const [items, setItems] = useLocalStorage('data');
 
   {/* Функция для установки нового состояния */}
   const addItem = item => {
     setItems([...mapItems(items), {
-      post: item.post,
-      title: item.title,
+      ...item,
       date: new Date(item.date),
-      id: oldItems.length > 0 ? Math.max(...oldItems.map(i => i.id)) + 1 : 1
+      id: items.length > 0 ? Math.max(...items.map(i => i.id)) + 1 : 1
     }]);
   };
 
   return (
-    <UserContext.Provider value={{userId: 2}} >
+    <UserContextProvider>
       <div className='app'>
         <LeftPanel>
           <Header/>
@@ -66,7 +43,7 @@ function App() {
           <JournalForm onSubmit={addItem}/>
         </Body>
       </div> 
-    </UserContext.Provider>
+    </UserContextProvider>
   );
 }
 
