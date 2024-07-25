@@ -8,6 +8,7 @@ const logos = ['/logo.svg', '/vite.svg'];
 function Header() {
 
   const [logoIndex, setLogoIndex] = useState(0);
+  console.log('Header');
 
   const toggleLogo = () => {
     setLogoIndex(state => Number(!state));
@@ -15,7 +16,7 @@ function Header() {
 
   return (
     <>
-      <Logo image={logos[logoIndex]} />
+      <Logo image={logos[0]} />
       <SelectUser/>
       <Button onClick={toggleLogo}>Сменить лого</Button>
     </>
