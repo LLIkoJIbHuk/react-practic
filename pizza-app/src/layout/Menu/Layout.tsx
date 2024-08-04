@@ -6,7 +6,7 @@ export function Layout(){
   return <div className={styles['layout']}>
     <div className={styles['sidebar']}>
       <div className={styles['user']}>
-        <img src="/avatar.png" alt="" />
+        <img className={styles['avatar']} src="/avatar.png" alt="" />
         <div className={styles['name']}>Антон Ларичев</div>
         <div className={styles['email']}>alaricode@ya.ru</div>
       </div>
@@ -18,7 +18,7 @@ export function Layout(){
           <img src="/cart-icon.svg" alt="" />
           Корзина</Link>
       </div>
-      <Button>
+      <Button className={styles['exit']} >
         <img src="/exit-icon.svg" alt="" />
         Выход
       </Button>
