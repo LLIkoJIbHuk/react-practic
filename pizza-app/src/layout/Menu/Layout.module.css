@@ -1,0 +1,9 @@
+.layout{
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar{
+  padding: 30px;
+  border-right: 1px solid var(--separator-color);
+}
