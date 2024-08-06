@@ -1,16 +1,9 @@
-import { Link, Outlet, useLocation } from 'react-router-dom';
+import { NavLink, Outlet } from 'react-router-dom';
 import styles from './Layout.module.css';
 import Button from '../../components/Button/Button';
-import { useEffect } from 'react';
 import cn from 'classnames';
 
 export function Layout(){
-
-  const location = useLocation();
-
-  useEffect(() => {
-    console.log(location);
-  }, [location]);
 
   return <div className={styles['layout']}>
     <div className={styles['sidebar']}>
@@ -20,15 +13,17 @@ export function Layout(){
         <div className={styles['email']}>alaricode@ya.ru</div>
       </div>
       <div className={styles['menu']}>
-        <Link to='/' className={cn(styles['link'], {
+        <NavLink to='/' className={({isActive}) => cn(styles['link'], {
           //только в случае, когда на главной | подсветка текущей страницы
-          [styles.active]: location.pathname === '/'
+          [styles.active]: isActive
         })}>
           <img src="/menu-icon.svg" alt="" />
-          Меню</Link>
-        <Link to='/cart' className={styles['link']}>
+          Меню</NavLink>
+        <NavLink to='/cart' className={({isActive}) => cn(styles['link'], {
+          [styles.active]: isActive
+        })}>
           <img src="/cart-icon.svg" alt="" />
-          Корзина</Link>
+          Корзина</NavLink>
       </div>
       <Button className={styles['exit']} >
         <img src="/exit-icon.svg" alt="" />
