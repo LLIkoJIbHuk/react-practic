@@ -4,7 +4,7 @@ import './index.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Menu } from './pages/Menu/Menu';
 import { Cart } from './pages/Cart/Cart';
-import { Error } from './pages/Error/Error';
+import { Error as ErrorPage } from './pages/Error/Error';
 import { Layout } from './layout/Menu/Layout';
 import { Product } from './pages/Product/Product';
 import axios from 'axios';
@@ -26,6 +26,7 @@ const router = createBrowserRouter([
       {
         path: '/product/:id',
         element: <Product />,
+        errorElement: <>Ошибка</>,
         loader: async ({params}) => {
           await new Promise<void>((resolve) => {
             setTimeout(() => {
@@ -40,7 +41,7 @@ const router = createBrowserRouter([
   },
   {
     path: '*',
-    element: <Error/>
+    element: <ErrorPage/>
   }
 ]);
 
