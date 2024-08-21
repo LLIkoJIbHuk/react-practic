@@ -1,7 +1,7 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { loadState } from './storage';
 import { LoginResonse } from '../interfaces/auth.interface';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { PREFIX } from '../helpers/API';
 
 export const JWT_PERSISTENT_STATE = 'userData';
@@ -12,22 +12,27 @@ export interface UserPersistentState {
 
 export interface UserState {
   jwt: string | null;
-  loginState: null | 'rejected';
+  loginErrorMeassage?: string;
 }
 
 //при загрузке загружаем из localStorage, если нет - ставим null
 const initialState: UserState = {
-  jwt: loadState<UserPersistentState>(JWT_PERSISTENT_STATE)?.jwt ?? null,
-  loginState: null
+  jwt: loadState<UserPersistentState>(JWT_PERSISTENT_STATE)?.jwt ?? null
 };
 
 export const login = createAsyncThunk('user/login', 
   async (params: {email: string, password: string}) => {
-    const {data} = await axios.post<LoginResonse>(`${PREFIX}/auth/login`, {
-      email: params.email,
-      password: params.password
-    });
-    return data;
+    try{
+      const {data} = await axios.post<LoginResonse>(`${PREFIX}/auth/login`, {
+        email: params.email,
+        password: params.password
+      });
+      return data;
+    } catch (e){
+      if (e instanceof AxiosError) {
+        throw new Error(e.response?.data.message);
+      }
+    }
   }
 );
 
@@ -37,14 +42,20 @@ export const userSlice = createSlice({
   reducers: { 
     logout: (state) => {
       state.jwt = null;
+    },
+    clearLoginError: (state) => {
+      state.loginErrorMeassage = undefined;
     }
   },
   extraReducers: (builder) => {
-    builder.addCase(login.fulfilled, (state, action: PayloadAction<LoginResonse>) => {
+    builder.addCase(login.fulfilled, (state, action) => {
+      if (!action.payload) {
+        return;
+      }
       state.jwt = action.payload.access_token;
     });
     builder.addCase(login.rejected, (state, action) => {
-      action.error.message
+      state.loginErrorMeassage = action.error.message;
     });
   }
 });
