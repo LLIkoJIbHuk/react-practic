@@ -23,18 +23,18 @@ function CartItem(props: CartItemProps) {
       <div className={styles['image']} style={{backgroundImage: `url('${props.image}')`}} ></div>
       <div className={styles['description']}>
         <div className={styles['name']}>{props.name}</div>
-        <div className={styles['currency']}>{props.price}&nbsp; &#8381;</div>
+        <div className={styles['price']}>{props.price}&nbsp; &#8381;</div>
       </div>
       <div className={styles['actions']}>
-        <button className={styles['button']} onClick={decrease} >
-          <img src="/cart-button-icon.svg" alt="Удалить из корзины" />
+        <button className={styles['minus']} onClick={decrease} >
+          <img src="/minus.svg" alt="Удалить из корзины" />
         </button>
-        <div>{props.count}</div>
-        <button className={styles['button']} onClick={increase} >
-          <img src="/cart-button-icon.svg" alt="Добавить в корзину" />
+        <div className={styles['number']} >{props.count}</div>
+        <button className={styles['plus']} onClick={increase} >
+          <img src="/plus.svg" alt="Добавить в корзину" />
         </button> 
         <button className={styles['remove']} onClick={remove} >
-          <img src="/cart-button-icon.svg" alt="Удалить все" />
+          <img src="/delete.svg" alt="Удалить все" />
         </button> 
       </div>
     </div>
