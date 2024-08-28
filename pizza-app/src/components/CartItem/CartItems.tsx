@@ -13,9 +13,11 @@ function CartItem(props: CartItemProps) {
   };
 
   const decrease = () => {
+    dispatch(cartActions.remove(props.id));  
   };
 
   const remove = () => {
+    dispatch(cartActions.delete(props.id));
   };
 
   return (
