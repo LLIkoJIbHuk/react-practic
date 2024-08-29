@@ -20,18 +20,24 @@ export const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: { 
+    //Удаляет товар из корзины по его идентификатору
+    //Используем метод filter, чтобы создать новый массив, исключая товар с идентификатором, указанным в action.payload
     delete: (state, action: PayloadAction<number>) =>{
       state.items = state.items.filter(i => i.id !== action.payload);
     },
+    //Используем find, чтобы получить только один элемент, который соответствует условию. 
     remove: (state, action: PayloadAction<number>) => {
       const existed = state.items.find( i => i.id === action.payload);
+      //Если товар с нужным id не найден - завершить выполнение
       if (!existed) {
         return;
       }
+      //Если количество товара равно 1, то он удаляется из корзины
       if (existed.count === 1){
         state.items = state.items.filter(i => i.id !== action.payload);
       } else {
         state.items.map(i => {
+          //Если кол-во больше 1, то уменьшается на 1
           if (i.id === action.payload) {
             i.count -= 1;
           }
