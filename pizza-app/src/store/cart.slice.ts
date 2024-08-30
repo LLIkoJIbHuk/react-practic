@@ -20,6 +20,9 @@ export const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: { 
+    clean: (state) =>{
+      state.items = [];
+    },
     //Удаляет товар из корзины по его идентификатору
     //Используем метод filter, чтобы создать новый массив, исключая товар с идентификатором, указанным в action.payload
     delete: (state, action: PayloadAction<number>) =>{
