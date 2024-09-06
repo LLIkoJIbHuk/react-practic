@@ -3,6 +3,7 @@ import {Title} from './title';
 import { FilterCheckbox } from './filter-checkbox';
 import { Input } from '../ui';
 import { RangeSlider } from './range-slider';
+import { CheckboxFiltersGroup } from './checkbox-filters-group';
 
 interface Props {
   className?: string;
@@ -29,7 +30,63 @@ export const Filters: React.FC<Props> = ({ className }) => {
         <RangeSlider min={0} max={5000} step={10} value={[0, 5000]} />
       </div>
 
-      
+      <CheckboxFiltersGroup 
+        title='Ингридиенты'
+        className='mt-5'
+        limit={6}
+        defaultItems={[
+          {
+            text: 'Сырный соус',
+            value: '1',
+          },
+          {
+            text: 'Сырный соус',
+            value: '2',
+          },
+          {
+            text: 'Сырный соус',
+            value: '3',
+          },
+          {
+            text: 'Сырный соус',
+            value: '4',
+          },
+          {
+            text: 'Сырный соус',
+            value: '5',
+          },
+          {
+            text: 'Сырный соус',
+            value: '6',
+          },
+        ]}
+        items={[
+          {
+            text: 'Сырный соус',
+            value: '1',
+          },
+          {
+            text: 'Сырный соус',
+            value: '2',
+          },
+          {
+            text: 'Сырный соус',
+            value: '3',
+          },
+          {
+            text: 'Сырный соус',
+            value: '4',
+          },
+          {
+            text: 'Сырный соус',
+            value: '5',
+          },
+          {
+            text: 'Сырный соус',
+            value: '6',
+          },
+        ]}
+      />
     </div>
     
   );
