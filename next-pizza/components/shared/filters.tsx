@@ -40,23 +40,23 @@ export const Filters: React.FC<Props> = ({ className }) => {
             value: '1',
           },
           {
-            text: 'Сырный соус',
+            text: 'Моцарелла',
             value: '2',
           },
           {
-            text: 'Сырный соус',
+            text: 'Чеснок',
             value: '3',
           },
           {
-            text: 'Сырный соус',
+            text: 'Соленые огурчики',
             value: '4',
           },
           {
-            text: 'Сырный соус',
+            text: 'Красный лук',
             value: '5',
           },
           {
-            text: 'Сырный соус',
+            text: 'Томаты',
             value: '6',
           },
         ]}
@@ -66,23 +66,23 @@ export const Filters: React.FC<Props> = ({ className }) => {
             value: '1',
           },
           {
-            text: 'Сырный соус',
+            text: 'Моцарелла',
             value: '2',
           },
           {
-            text: 'Сырный соус',
+            text: 'Чеснок',
             value: '3',
           },
           {
-            text: 'Сырный соус',
+            text: 'Соленые огурчики',
             value: '4',
           },
           {
-            text: 'Сырный соус',
+            text: 'Красный лук',
             value: '5',
           },
           {
-            text: 'Сырный соус',
+            text: 'Томаты',
             value: '6',
           },
         ]}
