@@ -9,7 +9,7 @@ export default function Home() {
     </Container>
     <TopBar />
     <Container className="mt-10 pb-14" >
-      <div className="flex gap-[60px]" >
+      <div className="flex gap-[80px]" >
 
         {/* Фильтрация */}
         <div className="w-[250px]" >
@@ -20,6 +20,86 @@ export default function Home() {
         <div className="flex-1" >
           <div className="flex flex-col gap-16" >
             <ProductsGroupList title='Пиццы' items={[
+              {
+                id: 1,
+                name: 'Бефстроганов',
+                imageUrl: 'https://media.dodostatic.net/image/r:292x292/11EEF9E43DC39C94AA5765DBF1C97100.avif',
+                price: 550,
+                items: [{price: 550}],
+              },
+              {
+                id: 1,
+                name: 'Бефстроганов',
+                imageUrl: 'https://media.dodostatic.net/image/r:292x292/11EEF9E43DC39C94AA5765DBF1C97100.avif',
+                price: 550,
+                items: [{price: 550}],
+              },
+              {
+                id: 1,
+                name: 'Бефстроганов',
+                imageUrl: 'https://media.dodostatic.net/image/r:292x292/11EEF9E43DC39C94AA5765DBF1C97100.avif',
+                price: 550,
+                items: [{price: 550}],
+              },
+              {
+                id: 1,
+                name: 'Бефстроганов',
+                imageUrl: 'https://media.dodostatic.net/image/r:292x292/11EEF9E43DC39C94AA5765DBF1C97100.avif',
+                price: 550,
+                items: [{price: 550}],
+              },
+              {
+                id: 1,
+                name: 'Бефстроганов',
+                imageUrl: 'https://media.dodostatic.net/image/r:292x292/11EEF9E43DC39C94AA5765DBF1C97100.avif',
+                price: 550,
+                items: [{price: 550}],
+              },
+              {
+                id: 1,
+                name: 'Бефстроганов',
+                imageUrl: 'https://media.dodostatic.net/image/r:292x292/11EEF9E43DC39C94AA5765DBF1C97100.avif',
+                price: 550,
+                items: [{price: 550}],
+              },
+            ]}
+            categoryId={1}  />
+            <ProductsGroupList title='Завтрак' items={[
+              {
+                id: 1,
+                name: 'Бефстроганов',
+                imageUrl: 'https://media.dodostatic.net/image/r:292x292/11EEF9E43DC39C94AA5765DBF1C97100.avif',
+                price: 550,
+                items: [{price: 550}],
+              },
+              {
+                id: 1,
+                name: 'Бефстроганов',
+                imageUrl: 'https://media.dodostatic.net/image/r:292x292/11EEF9E43DC39C94AA5765DBF1C97100.avif',
+                price: 550,
+                items: [{price: 550}],
+              },
+              {
+                id: 1,
+                name: 'Бефстроганов',
+                imageUrl: 'https://media.dodostatic.net/image/r:292x292/11EEF9E43DC39C94AA5765DBF1C97100.avif',
+                price: 550,
+                items: [{price: 550}],
+              },
+              {
+                id: 1,
+                name: 'Бефстроганов',
+                imageUrl: 'https://media.dodostatic.net/image/r:292x292/11EEF9E43DC39C94AA5765DBF1C97100.avif',
+                price: 550,
+                items: [{price: 550}],
+              },
+              {
+                id: 1,
+                name: 'Бефстроганов',
+                imageUrl: 'https://media.dodostatic.net/image/r:292x292/11EEF9E43DC39C94AA5765DBF1C97100.avif',
+                price: 550,
+                items: [{price: 550}],
+              },
               {
                 id: 1,
                 name: 'Бефстроганов',
