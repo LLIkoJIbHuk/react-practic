@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import { useIntersection } from 'react-use';
 import { Title } from './title';
@@ -30,7 +32,7 @@ export const ProductsGroupList: React.FC<Props> = ({
     }
   }, [categoryId, intersection?.isIntersecting, title]);
 
-  return <div className={className} >
+  return <div className={className} id={title} ref={intersectionRef} >
     <Title text={title} size='lg' className='font-extrabold mb-5' />
 
     <div className={cn('grid grid-cols-3 gap-[50px]', listClassName)} >
