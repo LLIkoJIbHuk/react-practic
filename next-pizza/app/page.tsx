@@ -19,7 +19,10 @@ export default function Home() {
         {/* Список товаров */}
         <div className="flex-1" >
           <div className="flex flex-col gap-16" >
-            <ProductsGroupList title='Пиццы' items={[
+            <ProductsGroupList
+              title='Пиццы'
+              categoryId={1}
+              items={[
               {
                 id: 1,
                 name: 'Бефстроганов',
@@ -63,8 +66,11 @@ export default function Home() {
                 items: [{price: 550}],
               },
             ]}
-            categoryId={1}  />
-            <ProductsGroupList title='Комбо' items={[
+            />
+            <ProductsGroupList
+              title='Комбо'
+              categoryId={2}
+              items={[
               {
                 id: 1,
                 name: 'Бефстроганов',
@@ -108,7 +114,7 @@ export default function Home() {
                 items: [{price: 550}],
               },
             ]}
-            categoryId={2}  />
+            />
           </div>
         </div>
       </div>
