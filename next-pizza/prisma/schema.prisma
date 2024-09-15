@@ -1,0 +1,32 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+//создаем таблицу данных для пользователя
+model User {
+  id Int @id @default(autoincrement())
+
+  fullName String
+  email    String
+  password String
+
+  //создаем пользователя с временем "сейчас"
+  createdAt DateTime @default(now())
+  //когда пользователь был обновлен
+  updatedAt DateTime @updatedAt
+}
+
+model Product {
+  id Int @id @default(autoincrement())
+
+  name     String
+  imageUrl String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
