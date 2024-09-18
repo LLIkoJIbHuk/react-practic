@@ -13,7 +13,7 @@ model User {
   id Int @id @default(autoincrement())
 
   fullName String
-  email    String
+  email    String @unique //делаем email уникальным
   password String
 
   //создаем пользователя с временем "сейчас"
