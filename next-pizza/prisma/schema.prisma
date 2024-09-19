@@ -26,6 +26,9 @@ model Category {
   id       Int       @id @default(autoincrement())
   name     String    @unique
   products Product[] //у категории есть множество продуктов - One-To-Many
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Product {
@@ -34,9 +37,38 @@ model Product {
   name     String
   imageUrl String
 
+  //у продукта можество ингредиентов
+  ingredients Ingredient[]
+  items       ProductItem[]
+
   //связываем множество Product с Category
   category   Category @relation(fields: [categoryId], references: [id])
   categoryId Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ProductItem {
+  id Int @id @default(autoincrement())
+
+  price     Int
+  size      Int?
+  pizzaType Int?
+
+  product   Product @relation(fields: [productId], references: [id])
+  productId Int
+}
+
+model Ingredient {
+  id Int @id @default(autoincrement())
+
+  name     String
+  price    Int
+  imageUrl String
+
+  //один ингридиент может иметь множество продуктов
+  products Product[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
