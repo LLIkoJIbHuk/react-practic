@@ -20,6 +20,7 @@ model User {
   createdAt DateTime @default(now())
   //когда пользователь был обновлен
   updatedAt DateTime @updatedAt
+  Cart      Cart[]
 }
 
 model Category {
@@ -69,6 +70,21 @@ model Ingredient {
 
   //один ингридиент может иметь множество продуктов
   products Product[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Cart {
+  id Int @id @default(autoincrement())
+
+  //Cart связан с User One-to-One
+  user   User @relation(fields: [userId], references: [id])
+  userId Int
+
+  token String
+
+  totalAmount Int @default(0)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
