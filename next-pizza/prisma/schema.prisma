@@ -16,11 +16,13 @@ model User {
   email    String @unique //делаем email уникальным
   password String
 
+  cart   Cart[]
+  orders Order[]
+
   //создаем пользователя с временем "сейчас"
   createdAt DateTime @default(now())
   //когда пользователь был обновлен
   updatedAt DateTime @updatedAt
-  Cart      Cart[]
 }
 
 model Category {
@@ -110,4 +112,34 @@ model CartItem {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Order {
+  id Int @id @default(autoincrement())
+
+  user   User? @relation(fields: [userId], references: [id])
+  userId Int?
+
+  token String
+
+  totalAmount Int?
+  status      OrderStatus
+  paymentId   String? //id заказа на уровне сервиса для оплаты
+
+  items Json //список товаров в корзине
+
+  fullName String
+  address  String
+  email    String
+  phone    String
+  comment  String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum OrderStatus {
+  PENDING
+  SUCCEEDED
+  CANCELLED
 }
