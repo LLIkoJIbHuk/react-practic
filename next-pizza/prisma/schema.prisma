@@ -16,6 +16,7 @@ model User {
   email    String   @unique //делаем email уникальным
   password String
   role     UserRole @default(USER)
+  verified DateTime
 
   provider   String? //cоц сеть
   providerId String?
@@ -28,7 +29,6 @@ model User {
   createdAt DateTime @default(now())
   //когда пользователь был обновлен
   updatedAt DateTime @updatedAt
-  cartId    Int
 }
 
 model Category {
