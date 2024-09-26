@@ -1,3 +1,4 @@
+import { categories, ingredients } from "./constants";
 import { prisma } from "./prisma-client";
 import { hashSync } from "bcrypt";
 
@@ -5,14 +6,14 @@ async function up(){
   await prisma.user.createMany({
     data: [
       {
-        fullName: 'User',
+        fullName: 'User Test',
         email: 'user@test.ru',
         password: hashSync('111111', 10),
         verified: new Date(),
         role: 'USER',
       },
       {
-        fullName: 'Admin',
+        fullName: 'Admin Admin',
         email: 'admin@test.ru',
         password: hashSync('111111', 10),
         verified: new Date(),
@@ -20,10 +21,21 @@ async function up(){
       }
     ]
   });
+
+  await prisma.category.createMany({
+    data: categories
+  });
+  
+  await prisma.ingredient.createMany({
+    data: ingredients
+  });
 }
 
 async function down(){
-  await prisma.user.deleteMany({});
+  //TRUNCATE TABLE - очищает таблицу User
+  //RESTART IDENTITY - сбрасывает счетчик инкремента
+  //CASCADE - удаление зависимостей, связанных с User
+  await prisma.$executeRaw`TRUNCATE TABLE "User" RESTART IDENTITY CASCADE `;
 }
 
 async function main(){
@@ -34,3 +46,13 @@ async function main(){
     console.error(e);
   }
 }
+
+main()
+  .then(async () => {
+    await prisma.$disconnect();
+  })
+  .catch(async (e) => {
+    console.error(e);
+    await prisma.$disconnect();
+    process.exit(1);
+  });
