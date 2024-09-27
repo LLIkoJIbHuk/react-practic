@@ -1,4 +1,4 @@
-import { categories, ingredients } from "./constants";
+import { categories, ingredients, products } from "./constants";
 import { prisma } from "./prisma-client";
 import { hashSync } from "bcrypt";
 
@@ -28,6 +28,22 @@ async function up(){
   
   await prisma.ingredient.createMany({
     data: ingredients
+  });
+
+  await prisma.product.createMany({
+    data: products
+  });
+
+  const pizza1 = await prisma.product.create({
+    data: {
+      name: 'Пепперони фреш',
+      imageUrl:
+        'https://media.dodostatic.net/image/r:292x292/11EEF9E43DC39C94AA5765DBF1C97100.avif',
+      categoryId: 1,
+      ingredients: {
+        connect: ingredients.slice(0, 5),
+      },
+    },
   });
 }
 
