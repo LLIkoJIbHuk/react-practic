@@ -2,6 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import { Search } from "lucide-react";
+import Link from "next/link";
 import React from "react";
 import { useClickAway } from "react-use";
 
@@ -34,9 +35,15 @@ export const SearchInput: React.FC<Props> = ({ className }) => {
           'absolute w-full bg-white rounded-xl py-2 top-14 shadow-md transition-all duration-200 invisible opacity-0 z-30',
           focused && 'visible opacity-100 top-12'
         )}>
-        qweqwe
+          <Link className="flex items-center gap-3 w-full px-3 py-2 hover:bg-primary/10" href="/product/1" >
+            <img 
+              className="rounded-sm h-8 w-8 " 
+              src="https://media.dodostatic.net/image/r:292x292/11EEF9E43DC39C94AA5765DBF1C97100.avif" 
+              alt="Пицца 1" 
+            />
+            <span>Пицца 1</span>
+          </Link>
         </div>
-
       </div>
     </>
   );
