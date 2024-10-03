@@ -24,7 +24,9 @@ export const SearchInput: React.FC<Props> = ({ className }) => {
 
   //получаем список товаров, которые нашли по запросу
   React.useEffect(() => {
-    Api.products.search(searchQuery);
+    Api.products.search(searchQuery).then(items => {
+      setProducts(items);
+    });
   }, [searchQuery]);
 
   return (
