@@ -6,7 +6,7 @@ import { Product } from "@prisma/client";
 import { Search } from "lucide-react";
 import Link from "next/link";
 import React from "react";
-import { useClickAway } from "react-use";
+import { useClickAway, useDebounce } from "react-use";
 
 interface Props{
   className?: string;
@@ -23,11 +23,19 @@ export const SearchInput: React.FC<Props> = ({ className }) => {
   });
 
   //получаем список товаров, которые нашли по запросу
-  React.useEffect(() => {
+  useDebounce(() => {
     Api.products.search(searchQuery).then(items => {
       setProducts(items);
     });
-  }, [searchQuery]);
+  }, 
+  250, //через каждые 100мс проверять изменения
+  [searchQuery]);
+
+  const onClickItem = () => {
+    setFocused(false); //скрывает блок
+    setSearchQuery(''); //очищает поиск
+    setProducts([]); //очищает массив найденных товаров
+  }
 
   return (
     <>
@@ -44,19 +52,21 @@ export const SearchInput: React.FC<Props> = ({ className }) => {
           onChange={(e) => setSearchQuery(e.target.value)}
         />
 
-        <div className={cn(
+        {products.length > 0 && <div className={cn(
           'absolute w-full bg-white rounded-xl py-2 top-14 shadow-md transition-all duration-200 invisible opacity-0 z-30',
           focused && 'visible opacity-100 top-12'
         )}>
-          <Link className="flex items-center gap-3 w-full px-3 py-2 hover:bg-primary/10" href="/product/1" >
-            <img 
-              className="rounded-sm h-8 w-8 " 
-              src="https://media.dodostatic.net/image/r:292x292/11EEF9E43DC39C94AA5765DBF1C97100.avif" 
-              alt="Пицца 1" 
-            />
-            <span>Пицца 1</span>
-          </Link>
-        </div>
+          {products.map((product) => (
+            <Link 
+              onClick={onClickItem}
+              key={product.id}
+              className="flex items-center gap-3 w-full px-3 py-2 hover:bg-primary/10" 
+              href={`/product/${product.id}`} >
+              <img className="rounded-sm h-8 w-8 " src={product.imageUrl} alt={product.name} />
+              <span>{product.name}</span>
+            </Link>
+          ))}
+        </div>}
       </div>
     </>
   );
