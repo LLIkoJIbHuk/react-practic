@@ -7,6 +7,7 @@ import { Input } from '../ui';
 import { RangeSlider } from './range-slider';
 import { CheckboxFiltersGroup } from './checkbox-filters-group';
 import { useFilterIngredientststs } from '@/hooks/useFilterIngredients';
+import { useSet } from 'react-use';
 
 interface Props {
   className?: string;
@@ -19,6 +20,9 @@ interface PriceProps {
 
 export const Filters: React.FC<Props> = ({ className }) => {
   const { ingredients, loading, onAddId, selectedIds } = useFilterIngredientststs();
+
+  const [sizes, { toggle: toggleSizes }] = useSet(new Set<string>([]));
+
   const [ prices, setPrice] = React.useState<PriceProps>({ 
     priceFrom: 0, 
     priceTo: 1000,
@@ -38,10 +42,18 @@ export const Filters: React.FC<Props> = ({ className }) => {
       <Title text="Фильтрация" size="sm" className="mb-5 font-bold" />
 
       {/* Верхние чекбоксы */}
-      <div className='flex flex-col gap-4' >
-        <FilterCheckbox name='qwe' text="Можно собирать" value="1" />
-        <FilterCheckbox name='asd' text="Новинки" value="2" />
-      </div>
+      <CheckboxFiltersGroup 
+        title='Размеры'
+        name='sizes'
+        className='mb-5'
+        onClickCheckbox={toggleSizes}
+        selected={sizes}
+        items={[
+          {text: '20см', value: '20'},
+          {text: '30см', value: '30'},
+          {text: '40см', value: '40'},
+        ]}
+      />
 
       {/* Фильтр цен */}
       <div className='mt-5 border-y border-y-neutral-100 py-6 pb-7' >
@@ -66,7 +78,7 @@ export const Filters: React.FC<Props> = ({ className }) => {
           onValueChange={([priceFrom, priceTo]) => setPrice({priceFrom, priceTo})}
         />
       </div>
-
+      
       <CheckboxFiltersGroup 
         title='Ингридиенты'
         name='ingredients'
@@ -76,9 +88,8 @@ export const Filters: React.FC<Props> = ({ className }) => {
         items={items}
         loading={loading}
         onClickCheckbox={onAddId}
-        selectedIds={selectedIds}
+        selected={selectedIds}
       />
     </div>
-    
   );
 };
