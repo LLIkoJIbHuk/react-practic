@@ -8,6 +8,7 @@ import { RangeSlider } from './range-slider';
 import { CheckboxFiltersGroup } from './checkbox-filters-group';
 import { useFilterIngredientststs } from '@/hooks/useFilterIngredients';
 import { useSet } from 'react-use';
+import qs from 'qs';
 
 interface Props {
   className?: string;
@@ -39,8 +40,18 @@ export const Filters: React.FC<Props> = ({ className }) => {
   }
 
   React.useEffect(() => {
-    console.log({ prices, pizzaTypes, sizes, selectedIngredients });
-  }, [prices, pizzaTypes, sizes, selectedIngredients])
+    const filters = {
+      ...prices,
+      pizzaTypes: Array.from(pizzaTypes),
+      sizes: Array.from(sizes),
+      ingredients: Array.from(selectedIngredients)
+    }
+
+    const query = qs.stringify(filters, {
+      arrayFormat: 'comma',
+    });
+
+  }, [prices, pizzaTypes, sizes, selectedIngredients]);
 
   return(
     <div className={className} >
