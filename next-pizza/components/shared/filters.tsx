@@ -9,26 +9,25 @@ import { CheckboxFiltersGroup } from './checkbox-filters-group';
 import { useFilterIngredientststs } from '@/hooks/useFilterIngredients';
 import { useSet } from 'react-use';
 import qs from 'qs';
+import { useRouter } from 'next/navigation';
 
 interface Props {
   className?: string;
 }
 
 interface PriceProps {
-  priceFrom: number;
-  priceTo: number;
+  priceFrom?: number;
+  priceTo?: number;
 }
 
 export const Filters: React.FC<Props> = ({ className }) => {
+  const router = useRouter();
   const { ingredients, loading, onAddId, selectedIngredients } = useFilterIngredientststs();
 
   const [sizes, { toggle: toggleSizes }] = useSet(new Set<string>([]));
   const [pizzaTypes, { toggle: togglePizzaTypes }] = useSet(new Set<string>([]));
 
-  const [ prices, setPrice] = React.useState<PriceProps>({ 
-    priceFrom: 0, 
-    priceTo: 1000,
-  });
+  const [ prices, setPrice] = React.useState<PriceProps>({});
 
   const items = ingredients.map((item) => ({ value: String(item.id), text: item.name }));
 
@@ -51,7 +50,8 @@ export const Filters: React.FC<Props> = ({ className }) => {
       arrayFormat: 'comma',
     });
 
-  }, [prices, pizzaTypes, sizes, selectedIngredients]);
+    router.push(`?${query}`);
+  }, [prices, pizzaTypes, sizes, selectedIngredients, router]);
 
   return(
     <div className={className} >
@@ -103,7 +103,7 @@ export const Filters: React.FC<Props> = ({ className }) => {
             onChange={(e) => updatePrice('priceTo', Number(e.target.value))}
           />
         </div>
-        <RangeSlider min={0} max={1000} step={10} value={[ prices.priceFrom, prices.priceTo, ]} 
+        <RangeSlider min={0} max={1000} step={10} value={[ prices.priceFrom || 0, prices.priceTo || 1000, ]} 
           onValueChange={([priceFrom, priceTo]) => setPrice({priceFrom, priceTo})}
         />
       </div>
