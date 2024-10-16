@@ -9,7 +9,7 @@ import { CheckboxFiltersGroup } from './checkbox-filters-group';
 import { useFilterIngredientststs } from '@/hooks/useFilterIngredients';
 import { useSet } from 'react-use';
 import qs from 'qs';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 interface Props {
   className?: string;
@@ -21,6 +21,7 @@ interface PriceProps {
 }
 
 export const Filters: React.FC<Props> = ({ className }) => {
+  const searchParams = useSearchParams();
   const router = useRouter();
   const { ingredients, loading, onAddId, selectedIngredients } = useFilterIngredientststs();
 
@@ -50,7 +51,9 @@ export const Filters: React.FC<Props> = ({ className }) => {
       arrayFormat: 'comma',
     });
 
-    router.push(`?${query}`);
+    router.push(`?${query}`, {
+      scroll: false, //убираем подергивание при выборе чекбоксов
+    });
   }, [prices, pizzaTypes, sizes, selectedIngredients, router]);
 
   return(
