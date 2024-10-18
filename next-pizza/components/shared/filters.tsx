@@ -31,8 +31,14 @@ export const Filters: React.FC<Props> = ({ className }) => {
   const router = useRouter();
   const { ingredients, loading, onAddId, selectedIngredients } = useFilterIngredientststs();
 
-  const [sizes, { toggle: toggleSizes }] = useSet(new Set<string>([]));
-  const [pizzaTypes, { toggle: togglePizzaTypes }] = useSet(new Set<string>([]));
+  const [sizes, { toggle: toggleSizes }] = useSet(
+    //сохранение состояния фильтров по размерам
+    new Set<string>(searchParams.has('sizes') ? searchParams.get('sizes')?.split(',') : [] ),
+  );
+  
+  const [pizzaTypes, { toggle: togglePizzaTypes }] = useSet(
+    new Set<string>(searchParams.has('pizzaTypes') ? searchParams.get('pizzaTypes')?.split(',') : [] )
+  );
 
   //сохранение состояния фильтров по стоимости при перезагрузке страницы
   const [ prices, setPrice] = React.useState<PriceProps>({
