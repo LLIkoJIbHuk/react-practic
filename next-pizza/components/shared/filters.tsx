@@ -29,13 +29,15 @@ interface QueryFilters extends PriceProps {
 export const Filters: React.FC<Props> = ({ className }) => {
   const searchParams = useSearchParams() as unknown as Map<keyof QueryFilters, string>;
   const router = useRouter();
-  const { ingredients, loading, onAddId, selectedIngredients } = useFilterIngredientststs();
+  const { ingredients, loading, onAddId, selectedIngredients } = useFilterIngredientststs(
+    searchParams.get('ingredients')?.split(','),
+  );
 
   const [sizes, { toggle: toggleSizes }] = useSet(
     //сохранение состояния фильтров по размерам
     new Set<string>(searchParams.has('sizes') ? searchParams.get('sizes')?.split(',') : [] ),
   );
-  
+
   const [pizzaTypes, { toggle: togglePizzaTypes }] = useSet(
     new Set<string>(searchParams.has('pizzaTypes') ? searchParams.get('pizzaTypes')?.split(',') : [] )
   );
