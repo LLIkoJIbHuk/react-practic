@@ -2,77 +2,28 @@
 
 import React from 'react';
 import {Title} from './title';
-import { FilterCheckbox } from './filter-checkbox';
 import { Input } from '../ui';
 import { RangeSlider } from './range-slider';
 import { CheckboxFiltersGroup } from './checkbox-filters-group';
-import { useFilterIngredientststs } from '@/hooks/useFilterIngredients';
-import { useSet } from 'react-use';
 import qs from 'qs';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
+import { useIngredients } from '@/hooks/use-ingredients';
+import { useFilters } from '@/hooks/use-filters';
+import { useQueryFilters } from '@/hooks/use-query-filters';
 
 interface Props {
   className?: string;
 }
 
-interface PriceProps {
-  priceFrom?: number;
-  priceTo?: number;
-}
-
-interface QueryFilters extends PriceProps {
-  pizzaTypes: string;
-  sizes: string;
-  ingredients: string;
-}
-
 export const Filters: React.FC<Props> = ({ className }) => {
-  const searchParams = useSearchParams() as unknown as Map<keyof QueryFilters, string>;
-  const router = useRouter();
-  const { ingredients, loading, onAddId, selectedIngredients } = useFilterIngredientststs(
-    searchParams.get('ingredients')?.split(','),
-  );
+  const {ingredients, loading} = useIngredients();
+  const filters = useFilters();
 
-  const [sizes, { toggle: toggleSizes }] = useSet(
-    //сохранение состояния фильтров по размерам
-    new Set<string>(searchParams.has('sizes') ? searchParams.get('sizes')?.split(',') : [] ),
-  );
-
-  const [pizzaTypes, { toggle: togglePizzaTypes }] = useSet(
-    new Set<string>(searchParams.has('pizzaTypes') ? searchParams.get('pizzaTypes')?.split(',') : [] )
-  );
-
-  //сохранение состояния фильтров по стоимости при перезагрузке страницы
-  const [ prices, setPrice] = React.useState<PriceProps>({
-    priceFrom: Number(searchParams.get('priceFrom')) || undefined,
-    priceTo: Number(searchParams.get('priceTo')) || undefined,
-  });
+  useQueryFilters(filters);
 
   const items = ingredients.map((item) => ({ value: String(item.id), text: item.name }));
 
-  const updatePrice = (name: keyof PriceProps, value: number) => {
-    setPrice({
-      ...prices,
-      [name]: value,
-    });
-  }
-
-  React.useEffect(() => {
-    const filters = {
-      ...prices,
-      pizzaTypes: Array.from(pizzaTypes),
-      sizes: Array.from(sizes),
-      ingredients: Array.from(selectedIngredients)
-    }
-
-    const query = qs.stringify(filters, {
-      arrayFormat: 'comma',
-    });
-
-    router.push(`?${query}`, {
-      scroll: false, //убираем подергивание при выборе чекбоксов
-    });
-  }, [prices, pizzaTypes, sizes, selectedIngredients, router]);
+  
 
   return(
     <div className={className} >
