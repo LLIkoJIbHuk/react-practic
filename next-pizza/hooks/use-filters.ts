@@ -48,7 +48,7 @@ export const useFilters = (): ReturnProps => {
 
   /* Фильтр стоимости */
   //сохранение состояния фильтров по стоимости при перезагрузке страницы
-  const [ prices, setPrice] = React.useState<PriceProps>({
+  const [ prices, setPrices] = React.useState<PriceProps>({
     priceFrom: Number(searchParams.get('priceFrom')) || undefined,
     priceTo: Number(searchParams.get('priceTo')) || undefined,
   });
