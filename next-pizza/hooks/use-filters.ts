@@ -53,11 +53,12 @@ export const useFilters = (): ReturnProps => {
     priceTo: Number(searchParams.get('priceTo')) || undefined,
   });
 
+  /* Обновление состояния фильтров цен */
   const updatePrice = (name: keyof PriceProps, value: number) => {
-    setPrices({
-      ...prices,
+    setPrices((prev) => ({
+      ...prev,
       [name]: value,
-    });
+    }));
   }
 
   return {
