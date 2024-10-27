@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: "Next Pizza | Главная",
 };
 
-export default function RootLayout({
+export default function HomeLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
