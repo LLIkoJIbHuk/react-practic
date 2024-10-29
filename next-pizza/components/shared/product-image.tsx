@@ -2,9 +2,9 @@ import { cn } from '@/lib/utils';
 import React from 'react';
 
 interface Props{
-  className?: string,
-  imageUrl: string,
-  size: number
+  className?: string;
+  imageUrl: string;
+  size: 20 | 30 | 40;
 }
 
 export const ProductImage: React.FC<Props> = ({ imageUrl, size, className }) => {
