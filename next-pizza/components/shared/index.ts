@@ -8,5 +8,5 @@ export {Filters} from './filters';
 export {FilterCheckbox} from './filter-checkbox';
 export {SearchInput} from './search-input';
 export { ProductImage } from './product-image';
-export { ChoosePizzaForm } from './choose-pizza-form';
+export { ChoosePizzaForm } from './choose-product-form';
 export * from './modals';
