@@ -4,7 +4,7 @@ import { Title } from "./title";
 import { Button } from "../ui";
 import { PizzaImage } from "./pizza-image";
 import { GroupVariants } from "./group-variat";
-import { PizzaSizes } from "@/shared/constants/pizza";
+import { PizzaSize, PizzaSizes, PizzaType } from "@/shared/constants/pizza";
 
 interface Props {
   imageUrl: string;
@@ -23,9 +23,11 @@ export const ChoosePizzaForm: React.FC<Props> = ({
   onClickAdd,
   className
 }) => {
+  const [size, setSize] = React.useState<PizzaSize>(20);
+  const [type, setType] = React.useState<PizzaType>(1);
+
   const textDetails = '30см, традиционное тесто 30';
   const totalPrice = 350;
-  const size = 30;
 
   return <div className={cn(className, 'flex flex-1')}>
     <PizzaImage imageUrl={imageUrl} size={size} />
@@ -35,8 +37,10 @@ export const ChoosePizzaForm: React.FC<Props> = ({
 
       <p className="text-gray-400" >{textDetails}</p>
 
-      <GroupVariants items={PizzaSizes}
-
+      <GroupVariants 
+        items={PizzaSizes}
+        value={String(size)}
+        onClick={value => setSize(Number(value) as PizzaSize)}
       />
 
       <Button className="h-[55px] px-10 text-base rounded-[18px] w-full mt-10" >
