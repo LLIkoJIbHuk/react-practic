@@ -24,7 +24,7 @@ export const ChooseProductModal: React.FC<Props> = ({ product, className }) => {
       <DialogContent className={cn('p-0 w-[1060px] max-w-[1060px] min-h-[500px] bg-white overflow-hidden', className)} >
         { /* проверяем, является ли продукт пиццей, иначе рендерим стандартную форму */
           isPizzaForm ? (
-            <ChoosePizzaForm imageUrl={product.imageUrl} name={product.name} ingredients={[]} />
+            <ChoosePizzaForm imageUrl={product.imageUrl} name={product.name} ingredients={product.ingredients} />
           ) : <ChooseProductForm imageUrl={product.imageUrl} name={product.name} />
         }
       </DialogContent>
