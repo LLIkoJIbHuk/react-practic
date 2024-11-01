@@ -53,7 +53,8 @@ export const ChoosePizzaForm: React.FC<Props> = ({
         />
       </div>
 
-      <div className="grid grid-cols-3 gap-3" >
+      <div className="bg-gray-50 p-5 rounded-md h-[420px] overflow-auto scrollbar mt-5" >
+        <div className="grid grid-cols-3 gap-3" >
         {ingredients.map((ingredient) => (
           <IngredientItem
             key={ingredient.id}
@@ -63,6 +64,7 @@ export const ChoosePizzaForm: React.FC<Props> = ({
             onClick={onClickAdd}
           />
         ))}
+        </div>
       </div>
 
       <Button className="h-[55px] px-10 text-base rounded-[18px] w-full mt-10" >
