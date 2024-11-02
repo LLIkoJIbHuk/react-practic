@@ -1,21 +1,21 @@
-import { cn } from "@/shared/lib/utils";
 import React from "react";
+import { useSet } from "react-use";
+import { Ingredient, ProductItem } from "@prisma/client";
+import { PizzaImage } from "./pizza-image";
 import { Title } from "./title";
 import { Button } from "../ui";
-import { PizzaImage } from "./pizza-image";
 import { GroupVariants } from "./group-variants";
 import { PizzaSize, PizzaSizes, PizzaType, PizzaTypes } from "@/shared/constants/pizza";
 import { IngredientItem } from "./ingredient-item";
-import { Ingredient } from "@prisma/client";
-import { useSet } from "react-use";
+import { cn } from "@/shared/lib/utils";
 
 interface Props {
   imageUrl: string;
   name: string;
   className?: string;
   ingredients: Ingredient[];
-  items?: any[];
-  onClickAdd?: VoidFunction;
+  items: ProductItem[];
+  onClickAddCart?: VoidFunction;
 }
 
 export const ChoosePizzaForm: React.FC<Props> = ({ 
@@ -23,7 +23,7 @@ export const ChoosePizzaForm: React.FC<Props> = ({
   items,
   imageUrl,
   ingredients,
-  onClickAdd,
+  onClickAddCart,
   className
 }) => {
   const [size, setSize] = React.useState<PizzaSize>(20);
