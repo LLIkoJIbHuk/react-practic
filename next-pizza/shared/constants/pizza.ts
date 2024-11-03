@@ -10,12 +10,12 @@ export const mapPizzaType = {
 } as const;
 
 /* Преобразуем в массив */
-export const PizzaSizes = Object.entries(mapPizzaSize).map(([value, name]) => ({
+export const pizzaSizes = Object.entries(mapPizzaSize).map(([value, name]) => ({
   name,
   value,
 }))
 
-export const PizzaTypes = Object.entries(mapPizzaType).map(([value, name]) => ({
+export const pizzaTypes = Object.entries(mapPizzaType).map(([value, name]) => ({
   name,
   value,
 }))

@@ -5,7 +5,7 @@ import { PizzaImage } from "./pizza-image";
 import { Title } from "./title";
 import { Button } from "../ui";
 import { GroupVariants } from "./group-variants";
-import { mapPizzaType, PizzaSize, PizzaSizes, PizzaType, PizzaTypes } from "@/shared/constants/pizza";
+import { mapPizzaType, PizzaSize, pizzaSizes, PizzaType, pizzaTypes } from "@/shared/constants/pizza";
 import { IngredientItem } from "./ingredient-item";
 import { cn } from "@/shared/lib/utils";
 
@@ -31,23 +31,31 @@ export const ChoosePizzaForm: React.FC<Props> = ({
 
   const [selectedIngredients, { toggle: addIngredient }] = useSet(new Set<number>([]));
 
-  const pizzaPrice = items.find((item) => item.pizzaType === type && item.size === size)!.price || 0;
+  const pizzaPrice = items.find((item) => item.pizzaType === type && item.size === size)?.price || 0;
   const totalIngredientPrice = ingredients
     ?.filter((ingredient) => selectedIngredients.has(ingredient.id))
     ?.reduce((acc, item) => acc + item.price, 0) || 0;
 
-    const totalPrice = pizzaPrice + totalIngredientPrice;
+  const totalPrice = pizzaPrice + totalIngredientPrice;
 
-    const textDetails = `${size} см, ${mapPizzaType[type]} пицца`;
+  const textDetails = `${size} см, ${mapPizzaType[type]} пицца`;
 
-    const handleClickAdd = () => {
-      onClickAddCart?.();
-      console.log({
-        size,
-        type,
-        ingredients: selectedIngredients
-      });
-    };
+  const handleClickAdd = () => {
+    onClickAddCart?.();
+    console.log({
+      size,
+      type,
+      ingredients: selectedIngredients
+    });
+  };
+
+  /* Фильтруем, оставляя только те типы, которые соответствуют типу пиццы */
+  const availablePizzas = items.filter((item) => item.pizzaType === type);
+  const availablePizzaSizes = pizzaSizes.map((item) => ({
+    name: item.name,
+    value: item.value,
+    disabled: !availablePizzas.some((pizza) => Number(pizza.size) === Number(item.value)),
+  }));
 
   return <div className={cn(className, 'flex flex-1')}>
     <PizzaImage imageUrl={imageUrl} size={size} />
@@ -59,13 +67,13 @@ export const ChoosePizzaForm: React.FC<Props> = ({
 
       <div className="flex flex-col gap-4 mt-5" >
         <GroupVariants 
-          items={PizzaSizes}
+          items={availablePizzaSizes}
           value={String(size)}
           onClick={value => setSize(Number(value) as PizzaSize)}
         />
 
         <GroupVariants 
-          items={PizzaTypes}
+          items={pizzaTypes}
           value={String(type)}
           onClick={value => setType(Number(value) as PizzaType)}
         />
