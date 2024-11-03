@@ -57,6 +57,17 @@ export const ChoosePizzaForm: React.FC<Props> = ({
     disabled: !availablePizzas.some((pizza) => Number(pizza.size) === Number(item.value)),
   }));
 
+  /* Каждый раз при изменении типа пиццы обновляем список доступных размеров */
+  React.useEffect(() => {
+    /* Находим первый доступный размер */
+    const availableSize = availablePizzaSizes?.find((item) => !item.disabled);
+
+    /* Если найден - задаем это значение */
+    if (availableSize) {
+      setSize(Number(availableSize.value) as PizzaSize);
+    }
+  }, [type]);
+
   return <div className={cn(className, 'flex flex-1')}>
     <PizzaImage imageUrl={imageUrl} size={size} />
 
