@@ -8,7 +8,7 @@ import { GroupVariants } from "./group-variants";
 import { mapPizzaType, PizzaSize, pizzaSizes, PizzaType, pizzaTypes } from "@/shared/constants/pizza";
 import { IngredientItem } from "./ingredient-item";
 import { cn } from "@/shared/lib/utils";
-import { calcTotalPizzaPrice } from "@/shared/lib/calc-total-pizza-price";
+import { calcTotalPizzaPrice, getAvailablePizzaSizes } from "@/shared/lib";
 
 interface Props {
   imageUrl: string;
@@ -50,13 +50,7 @@ export const ChoosePizzaForm: React.FC<Props> = ({
     });
   };
 
-  /* Фильтруем, оставляя только те типы, которые соответствуют типу пиццы */
-  const filteredPizzasByType = items.filter((item) => item.pizzaType === type);
-  const availablePizzaSizes = pizzaSizes.map((item) => ({
-    name: item.name,
-    value: item.value,
-    disabled: !filteredPizzasByType.some((pizza) => Number(pizza.size) === Number(item.value)),
-  }));
+  const availablePizzaSizes = getAvailablePizzaSizes(type, items);
 
   /* Каждый раз при изменении типа пиццы обновляем список доступных размеров */
   React.useEffect(() => {
