@@ -9,6 +9,7 @@ import { mapPizzaType, PizzaSize, pizzaSizes, PizzaType, pizzaTypes } from "@/sh
 import { IngredientItem } from "./ingredient-item";
 import { cn } from "@/shared/lib/utils";
 import { calcTotalPizzaPrice, getAvailablePizzaSizes } from "@/shared/lib";
+import { usePizzaOptions } from "@/shared/hooks";
 
 interface Props {
   imageUrl: string;
@@ -27,10 +28,8 @@ export const ChoosePizzaForm: React.FC<Props> = ({
   onClickAddCart,
   className
 }) => {
-  const [size, setSize] = React.useState<PizzaSize>(20);
-  const [type, setType] = React.useState<PizzaType>(1);
-
-  const [selectedIngredients, { toggle: addIngredient }] = useSet(new Set<number>([]));
+  
+  const { size, type, selectedIngredients, availableSizes, setSize, setType, addIngredient } = usePizzaOptions(items);
 
   const totalPrice = calcTotalPizzaPrice(
     type, 
@@ -40,7 +39,7 @@ export const ChoosePizzaForm: React.FC<Props> = ({
     selectedIngredients,
   );
   const textDetails = `${size} см, ${mapPizzaType[type]} пицца`;
-
+  
   const handleClickAdd = () => {
     onClickAddCart?.();
     console.log({
@@ -49,20 +48,6 @@ export const ChoosePizzaForm: React.FC<Props> = ({
       ingredients: selectedIngredients
     });
   };
-
-  const availablePizzaSizes = getAvailablePizzaSizes(type, items);
-
-  /* Каждый раз при изменении типа пиццы обновляем список доступных размеров */
-  React.useEffect(() => {
-    const isAvailableSize = availablePizzaSizes?.find((item) => Number(item.value) === size && !item.disabled);
-    /* Находим первый доступный размер */
-    const availableSize = availablePizzaSizes?.find((item) => !item.disabled);
-
-    /* Если найден - задаем это значение */
-    if (!isAvailableSize && availableSize) {
-      setSize(Number(availableSize.value) as PizzaSize);
-    }
-  }, [type]);
 
   return <div className={cn(className, 'flex flex-1')}>
     <PizzaImage imageUrl={imageUrl} size={size} />
@@ -74,7 +59,7 @@ export const ChoosePizzaForm: React.FC<Props> = ({
 
       <div className="flex flex-col gap-4 mt-5" >
         <GroupVariants 
-          items={availablePizzaSizes}
+          items={availableSizes}
           value={String(size)}
           onClick={value => setSize(Number(value) as PizzaSize)}
         />
