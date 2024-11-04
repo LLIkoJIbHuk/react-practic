@@ -8,6 +8,7 @@ import { GroupVariants } from "./group-variants";
 import { mapPizzaType, PizzaSize, pizzaSizes, PizzaType, pizzaTypes } from "@/shared/constants/pizza";
 import { IngredientItem } from "./ingredient-item";
 import { cn } from "@/shared/lib/utils";
+import { calcTotalPizzaPrice } from "@/shared/lib/calc-total-pizza-price";
 
 interface Props {
   imageUrl: string;
@@ -31,13 +32,13 @@ export const ChoosePizzaForm: React.FC<Props> = ({
 
   const [selectedIngredients, { toggle: addIngredient }] = useSet(new Set<number>([]));
 
-  const pizzaPrice = items.find((item) => item.pizzaType === type && item.size === size)?.price || 0;
-  const totalIngredientPrice = ingredients
-    ?.filter((ingredient) => selectedIngredients.has(ingredient.id))
-    ?.reduce((acc, item) => acc + item.price, 0) || 0;
-
-  const totalPrice = pizzaPrice + totalIngredientPrice;
-
+  const totalPrice = calcTotalPizzaPrice(
+    type, 
+    size, 
+    items, 
+    ingredients,
+    selectedIngredients,
+  );
   const textDetails = `${size} см, ${mapPizzaType[type]} пицца`;
 
   const handleClickAdd = () => {
@@ -50,11 +51,11 @@ export const ChoosePizzaForm: React.FC<Props> = ({
   };
 
   /* Фильтруем, оставляя только те типы, которые соответствуют типу пиццы */
-  const availablePizzas = items.filter((item) => item.pizzaType === type);
+  const filteredPizzasByType = items.filter((item) => item.pizzaType === type);
   const availablePizzaSizes = pizzaSizes.map((item) => ({
     name: item.name,
     value: item.value,
-    disabled: !availablePizzas.some((pizza) => Number(pizza.size) === Number(item.value)),
+    disabled: !filteredPizzasByType.some((pizza) => Number(pizza.size) === Number(item.value)),
   }));
 
   /* Каждый раз при изменении типа пиццы обновляем список доступных размеров */
