@@ -8,7 +8,7 @@ import { GroupVariants } from "./group-variants";
 import { mapPizzaType, PizzaSize, pizzaSizes, PizzaType, pizzaTypes } from "@/shared/constants/pizza";
 import { IngredientItem } from "./ingredient-item";
 import { cn } from "@/shared/lib/utils";
-import { calcTotalPizzaPrice, getAvailablePizzaSizes } from "@/shared/lib";
+import { calcTotalPizzaPrice, getAvailablePizzaSizes, getPizzaDetails } from "@/shared/lib";
 import { usePizzaOptions } from "@/shared/hooks";
 
 interface Props {
@@ -31,14 +31,7 @@ export const ChoosePizzaForm: React.FC<Props> = ({
   
   const { size, type, selectedIngredients, availableSizes, setSize, setType, addIngredient } = usePizzaOptions(items);
 
-  const totalPrice = calcTotalPizzaPrice(
-    type, 
-    size, 
-    items, 
-    ingredients,
-    selectedIngredients,
-  );
-  const textDetails = `${size} см, ${mapPizzaType[type]} пицца`;
+  const { totalPrice, textDetails } = getPizzaDetails(type, size, items, ingredients, selectedIngredients);
   
   const handleClickAdd = () => {
     onClickAddCart?.();
