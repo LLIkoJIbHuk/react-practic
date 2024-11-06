@@ -1,14 +1,15 @@
+'use client';
+
 import React from "react";
-import { useSet } from "react-use";
 import { Ingredient, ProductItem } from "@prisma/client";
 import { PizzaImage } from "./pizza-image";
 import { Title } from "./title";
 import { Button } from "../ui";
 import { GroupVariants } from "./group-variants";
-import { mapPizzaType, PizzaSize, pizzaSizes, PizzaType, pizzaTypes } from "@/shared/constants/pizza";
+import { PizzaSize, PizzaType, pizzaTypes } from "@/shared/constants/pizza";
 import { IngredientItem } from "./ingredient-item";
 import { cn } from "@/shared/lib/utils";
-import { calcTotalPizzaPrice, getAvailablePizzaSizes, getPizzaDetails } from "@/shared/lib";
+import { getPizzaDetails } from "@/shared/lib";
 import { usePizzaOptions } from "@/shared/hooks";
 
 interface Props {
