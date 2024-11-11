@@ -1,7 +1,7 @@
 import { Minus, Plus } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import { CountButtonProps } from './count-button';
-import { cn } from '@/lib/utils';
+import { Button } from '../ui/button';
+import { cn } from '@/shared/lib/utils';
 
 interface IconButtonProps {
   size?: CountButtonProps['size'];
