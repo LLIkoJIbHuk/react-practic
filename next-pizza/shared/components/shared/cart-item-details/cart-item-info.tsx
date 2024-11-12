@@ -10,16 +10,7 @@ interface Props {
 }
 
 export const CartItemInfo: React.FC<Props> = ({ name, pizzaSize, type, ingredients }) => {
-  const details = [];
 
-  if (pizzaSize && type) {
-    const typeName = mapPizzaType[type];
-    details.push(`${typeName} ${pizzaSize} см`);
-  }
-
-  if (ingredients) {
-    details.push(...ingredients.map((ingredient) => ingredient.name));
-  }
 
   return (
     <div>
