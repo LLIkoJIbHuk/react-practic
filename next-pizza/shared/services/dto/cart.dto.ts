@@ -1,4 +1,4 @@
-import { Cart, Ingredient, Product, ProductItem } from "@prisma/client";
+import { Cart, CartItem, Ingredient, Product, ProductItem } from "@prisma/client";
 
 export type CartItemDTO = CartItem & {
   productItem: ProductItem & {
