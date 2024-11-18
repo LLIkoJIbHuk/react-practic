@@ -16,6 +16,7 @@ import { ArrowRight } from "lucide-react";
 import { CartDrawerItem } from "./cart-drawer-item";
 import { getCartItemDetails } from "@/shared/lib";
 import { useCartStore } from "@/shared/store";
+import { PizzaSize, PizzaType } from "@/shared/constants/pizza";
 
 interface Props {
   className?: string
@@ -50,10 +51,10 @@ export const CartDrawer: React.FC<React.PropsWithChildren<Props>> = ({ children,
                   key={item.id}
                   id={item.id} 
                   imageUrl={item.imageUrl}
-                  details={item.pizzaSize ? getCartItemDetails(item.ingredients, item.pizzaSize, item.pizzaType,) : ''} 
+                  details={item.pizzaSize && item.pizzaType ? getCartItemDetails(item.ingredients, item.pizzaType as PizzaType, item.pizzaSize as PizzaSize) : ''} 
                   name={item.name} 
-                  price={419} 
-                  quantity={1} 
+                  price={item.price} 
+                  quantity={item.quantity} 
                 />
               ))
             }
