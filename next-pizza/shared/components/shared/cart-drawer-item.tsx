@@ -7,6 +7,7 @@ import { CountButton } from "./count-button";
 import { Trash2Icon } from "lucide-react";
 
 interface Props extends CartItemProps {
+  onClickUpdateQuantity?: (type: 'plus' | 'minus') => void;
   className?: string;
 }
 
