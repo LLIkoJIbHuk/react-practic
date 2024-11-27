@@ -82,15 +82,25 @@ export async function POST(req: NextRequest) {
           quantity: findCartItem.quantity + 1,
         }
       })
-
-      //обновляем общую сумму корзины и устанавливаем куки с токеном
-      const updatedUserCart = await updateCartTotalAmount(token);
-      
-      const resp = NextResponse.json(updatedUserCart);
-      resp.cookies.set('cartToken', token);
-      return resp;
     }
 
+    await prisma.cartItem.create({
+      data: {
+        cartId: userCart.id,
+        productItemId: data.productItemId,
+        quantity: 1,
+        ingredients: {
+          connect: data.ingredients?.map((id) => ({ id })),
+        },
+      },
+    });
+
+    //обновляем общую сумму корзины и устанавливаем куки с токеном
+    const updatedUserCart = await updateCartTotalAmount(token);     
+    
+    const resp = NextResponse.json(updatedUserCart);
+    resp.cookies.set('cartToken', token);
+    return resp;
   } catch (error) {
     console.log('[CART_POST] Server error', error);console.error(error);
     return NextResponse.json({ error: 'Не удалось создать корзину' }, { status: 500 });
