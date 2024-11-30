@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { ChooseProductForm } from "../choose-product-form";
 import { ProductWithRelations } from "@/@types/prisma";
 import { ChoosePizzaForm } from "../choose-pizza-form";
+import { useCartStore } from "@/shared/store";
 
 interface Props {
   className?: string;
@@ -15,8 +16,18 @@ interface Props {
 
 export const ChooseProductModal: React.FC<Props> = ({ product, className }) => {
   const router = useRouter();
+  const firstItem = product.items[0];
   /* Проверяем, является ли продукт пиццей */
-  const isPizzaForm = Boolean(product.items[0].pizzaType);
+  const isPizzaForm = Boolean(firstItem.pizzaType);
+  const addCartItem = useCartStore(state => state.addCartItem);
+
+  // добавляем продукт в корзину
+  const onAddProduct = () => {
+    addCartItem({
+      proiductItemId: firstItem.id,
+    })
+  };
+  const onAddPizza = () => {};
 
   return (
     /* модальное окно */
