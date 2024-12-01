@@ -8,6 +8,7 @@ import { ChooseProductForm } from "../choose-product-form";
 import { ProductWithRelations } from "@/@types/prisma";
 import { ChoosePizzaForm } from "../choose-pizza-form";
 import { useCartStore } from "@/shared/store";
+import toast from "react-hot-toast";
 
 interface Props {
   className?: string;
@@ -19,7 +20,7 @@ export const ChooseProductModal: React.FC<Props> = ({ product, className }) => {
   const firstItem = product.items[0];
   /* Проверяем, является ли продукт пиццей */
   const isPizzaForm = Boolean(firstItem.pizzaType);
-  const addCartItem = useCartStore(state => state.addCartItem);
+  const [addCartItem, loading] = useCartStore(state => [state.addCartItem, state.loading]);
 
   // добавляем продукт в корзину
   const onAddProduct = () => {
@@ -34,7 +35,10 @@ export const ChooseProductModal: React.FC<Props> = ({ product, className }) => {
         productItemId,
         ingredients,
       });
+      toast.success('Товар добавлен в корзину');
+      router.back();
     } catch (e) {
+      toast.error('Не удалось добавить товар в корзину');
       console.error(e);
     }
   };
@@ -51,8 +55,15 @@ export const ChooseProductModal: React.FC<Props> = ({ product, className }) => {
               ingredients={product.ingredients} 
               items={product.items}
               onSubmit={onAddPizza}
+              loading={loading}
             />
-          ) : <ChooseProductForm imageUrl={product.imageUrl} name={product.name} onSubmit={onAddProduct} price={firstItem.price}/>
+          ) : <ChooseProductForm 
+                imageUrl={product.imageUrl} 
+                name={product.name} 
+                onSubmit={onAddProduct} 
+                price={firstItem.price}
+                loading={loading}
+              />
         }
       </DialogContent>
     </Dialog>
