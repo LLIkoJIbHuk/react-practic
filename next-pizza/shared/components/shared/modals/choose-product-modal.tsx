@@ -24,10 +24,16 @@ export const ChooseProductModal: React.FC<Props> = ({ product, className }) => {
   // добавляем продукт в корзину
   const onAddProduct = () => {
     addCartItem({
-      proiductItemId: firstItem.id,
+      productItemId: firstItem.id,
     })
   };
-  const onAddPizza = () => {};
+
+  const onAddPizza = (productItemId: number, ingredients: number[]) => {
+    addCartItem({
+      productItemId,
+      ingredients,
+    })
+  };
 
   return (
     /* модальное окно */
@@ -40,8 +46,9 @@ export const ChooseProductModal: React.FC<Props> = ({ product, className }) => {
               name={product.name} 
               ingredients={product.ingredients} 
               items={product.items}
+              onSubmit={onAddPizza}
             />
-          ) : <ChooseProductForm imageUrl={product.imageUrl} name={product.name} />
+          ) : <ChooseProductForm imageUrl={product.imageUrl} name={product.name} onSubmit={onAddProduct} price={firstItem.price}/>
         }
       </DialogContent>
     </Dialog>
