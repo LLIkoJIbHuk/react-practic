@@ -22,34 +22,23 @@ export const ChooseProductModal: React.FC<Props> = ({ product, className }) => {
   const isPizzaForm = Boolean(firstItem.pizzaType);
   const [addCartItem, loading] = useCartStore(state => [state.addCartItem, state.loading]);
 
-  // добавляем продукт в корзину
-  const onAddProduct = () => {
-    addCartItem({
-      productItemId: firstItem.id,
-    })
-  };
-
-  const onAddPizza = async (productItemId: number, ingredients: number[]) => {
+  const onSubmit = async (productItemId?: number, ingredients?: number[]) => {
     try {
+
+      const itemId = productItemId ?? firstItem.id;
+
       await addCartItem({
-        productItemId,
+        productItemId: itemId,
         ingredients,
       });
-      toast.success('Товар добавлен в корзину');
+
+      toast.success(product.name + ' добавлен в корзину');
       router.back();
     } catch (e) {
       toast.error('Не удалось добавить товар в корзину');
       console.error(e);
     }
   };
-
-  const onSubmit = (productItemId?: number, ingredients?: number[]) => {
-    if (isPizzaForm) {
-      onAddPizza(productItemId!, ingredients!);
-    } else {
-      onAddProduct();
-    }
-  }
 
   return (
     /* модальное окно */
