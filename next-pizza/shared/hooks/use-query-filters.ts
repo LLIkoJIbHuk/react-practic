@@ -22,5 +22,5 @@ export const useQueryFilters = (filters: Filters) => {
     router.push(`?${query}`, {
       scroll: false //убираем подергивание при выборе чекбоксов
     });
-  }, [filters, router]);
+  }, [filters]);
 }
