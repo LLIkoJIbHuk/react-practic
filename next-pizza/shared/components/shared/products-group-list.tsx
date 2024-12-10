@@ -6,10 +6,11 @@ import { Title } from './title';
 import { cn } from '@/shared/lib/utils';
 import { ProductCard } from './product-card';
 import { useCategoryStore } from '@/shared/store/category';
+import { ProductWithRelations } from '@/@types/prisma';
 
 interface Props {
   title: string;
-  items: any[];
+  items: ProductWithRelations;
   className?: string;
   listClassName?: string;
   categoryId: number;
@@ -47,6 +48,7 @@ export const ProductsGroupList: React.FC<Props> = ({
           imageUrl={product.imageUrl}
           //Продукт не содержит цены. Цена есть только у вариации. Берется цена от первой вариации
           price={product.items[0].price}
+          ingredients={product.ingredients}
         />
       ))}
     </div>
