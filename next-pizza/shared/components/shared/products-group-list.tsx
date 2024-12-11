@@ -10,7 +10,7 @@ import { ProductWithRelations } from '@/@types/prisma';
 
 interface Props {
   title: string;
-  items: ProductWithRelations;
+  items: ProductWithRelations[];
   className?: string;
   listClassName?: string;
   categoryId: number;

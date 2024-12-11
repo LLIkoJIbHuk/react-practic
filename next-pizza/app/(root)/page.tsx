@@ -1,5 +1,4 @@
-import {  Container, Filters, Title, TopBar } from "@/shared/components/shared";
-import { ProductsGroupList } from "@/shared/components/shared/products-group-list";
+import {  Container, Filters, Title, TopBar, ProductsGroupList } from "@/shared/components/shared";
 import { Suspense } from "react";
 import { findPizzas, GetSearchParams } from "@/shared/lib/find-pizzas";
 
