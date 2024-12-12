@@ -1,8 +1,11 @@
+'use client';
+
 import { useCartStore } from "@/shared/store";
 import React from "react";
 import toast from "react-hot-toast";
 import { ChoosePizzaForm } from "./choose-pizza-form";
 import { ChooseProductForm } from "./choose-product-form";
+import { ProductWithRelations } from "@/@types/prisma";
 
 interface Props {
   product: ProductWithRelations;
@@ -16,7 +19,6 @@ export const ProductForm = ({ product, className }: Props) => {
 
   const onSubmit = async (productItemId?: number, ingredients?: number[]) => {
     try {
-
       const itemId = productItemId ?? firstItem.id;
 
       await addCartItem({
