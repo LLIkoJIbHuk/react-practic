@@ -9,10 +9,10 @@ import { ProductWithRelations } from "@/@types/prisma";
 
 interface Props {
   product: ProductWithRelations;
-  className?: string;
+  onSubmit?: VoidFunction;
 }
 
-export const ProductForm = ({ product, className }: Props) => {
+export const ProductForm = ({ product, onSubmit: _onSubmit }: Props) => {
   const [addCartItem, loading] = useCartStore(state => [state.addCartItem, state.loading]);
   const firstItem = product.items[0];
   const isPizzaForm = Boolean(firstItem.pizzaType);
@@ -27,6 +27,8 @@ export const ProductForm = ({ product, className }: Props) => {
       });
 
       toast.success(product.name + ' добавлен в корзину');
+
+      _onSubmit?.();
     } catch (e) {
       toast.error('Не удалось добавить товар в корзину');
       console.error(e);
