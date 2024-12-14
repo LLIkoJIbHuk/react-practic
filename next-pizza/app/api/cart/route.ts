@@ -62,14 +62,17 @@ export async function POST(req: NextRequest) {
       where: {
         cartId: userCart.id,
         productItemId: data.productItemId,
-        ingredients: {
+        ingredients: data.ingredients ? {
           every: {
             id: {
               in: data.ingredients,
             },
           },
-        }
+        } : undefined,
       },
+      include: {
+        ingredients: true,
+      }
     });
 
     //если такой ингредиент уже есть в корзине, то увеличиваем его количество
@@ -82,18 +85,18 @@ export async function POST(req: NextRequest) {
           quantity: findCartItem.quantity + 1,
         }
       })
-    }
-
-    await prisma.cartItem.create({
-      data: {
-        cartId: userCart.id,
-        productItemId: data.productItemId,
-        quantity: 1,
-        ingredients: {
-          connect: data.ingredients?.map((id) => ({ id })),
+    } else {
+      await prisma.cartItem.create({
+        data: {
+          cartId: userCart.id,
+          productItemId: data.productItemId,
+          quantity: 1,
+          ingredients: {
+            connect: data.ingredients?.map((id) => ({ id })),
+          },
         },
-      },
-    });
+      });
+    }
 
     //обновляем общую сумму корзины и устанавливаем куки с токеном
     const updatedUserCart = await updateCartTotalAmount(token);     
