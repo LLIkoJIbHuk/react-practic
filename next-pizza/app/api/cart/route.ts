@@ -57,7 +57,7 @@ export async function POST(req: NextRequest) {
 
     const data = (await req.json()) as CreateCartItemValues;
 
-    //увеличиваем количество, если товар с такими ингредиентами уже есть в корзине
+    //увеличиваем количество, если товар с такими ингредиентами уже есть в корзине {15:09:47}
     const findCartItem = await prisma.cartItem.findFirst({
       where: {
         cartId: userCart.id,
