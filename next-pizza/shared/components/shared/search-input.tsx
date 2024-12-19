@@ -23,18 +23,14 @@ export const SearchInput: React.FC<Props> = ({ className }) => {
   });
 
   //получаем список товаров, которые нашли по запросу
-  useDebounce(() => {
+  useDebounce(
     async () => {
-      try {
-        const response = await Api.products.search(searchQuery); 
-        setProducts(response);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-  }, 
-  250, //через каждые 100мс проверять изменения
-  [searchQuery]);
+      const products = await Api.products.search(searchQuery);
+      setProducts(products);
+    },
+    100,
+    [searchQuery],
+  );
 
   const onClickItem = () => {
     setFocused(false); //скрывает блок
