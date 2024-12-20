@@ -8,10 +8,11 @@ import Link from 'next/link';
 
 interface Props{
   hasSearch?: boolean;
+  hasCart?: boolean;
   className?: string;
 }
 
-export const Header: React.FC<Props> = ({hasSearch = true, className}) => {
+export const Header: React.FC<Props> = ({hasSearch = true, hasCart = true, className}) => {
   return(
     <header className={cn('border border-b', className)} >
       <Container className='flex items-center justify-between py-8' >
@@ -37,7 +38,7 @@ export const Header: React.FC<Props> = ({hasSearch = true, className}) => {
           </Button>
 
           <div>
-            <CartButton />
+            {hasCart && <CartButton />}
           </div>
         </div>
       </Container>
