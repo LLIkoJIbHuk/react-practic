@@ -1,5 +1,6 @@
-import { Container, Title, WhiteBlock } from "@/shared/components/shared";
-import { Input, Textarea } from "@/shared/components/ui";
+import { CheckoutItemDetails, Container, Title, WhiteBlock } from "@/shared/components/shared";
+import { Button, Input, Textarea } from "@/shared/components/ui";
+import { ArrowRight, Package, Percent, Truck } from "lucide-react";
 
 export default function CheckoutPage() {
   return <Container className="mt-10" >
@@ -39,14 +40,29 @@ export default function CheckoutPage() {
             <span className="text-[34px] font-extrabold" >3 500 ₽</span>
           </div>
 
-          <div className="flex my-4" >
-            <span className="flex flex-1 text-lg text-neutral-500" >
+          <CheckoutItemDetails title={
+            <div className="flex items-center" >
+              <Package size={18} className="mr-2 text-gray-300" />
               Стоимость товара:
-              <div className="flex-1 border-b border-dashed border-b-neutral-200 relative -top-1 mx-2" />
-            </span>
+            </div>
+          } value="3 000 ₽" />
+          <CheckoutItemDetails title={
+            <div className="flex items-center" >
+              <Percent size={18} className="mr-2 text-gray-300" />
+              Налоги
+            </div>
+          } value="250 ₽" />
+          <CheckoutItemDetails title={
+            <div className="flex items-center" >
+              <Truck size={18} className="mr-2 text-gray-300" />
+              Доставка
+            </div>
+          } value="250 ₽" />
 
-            <span className="font-bold text-lg" >3 000 ₽</span>
-          </div>
+          <Button type="submit" className="w-full h-14 rounded-2xl mt-6 text-base font-bold" >
+            Перейти к оплате
+            <ArrowRight className="w-5 ml-2" />
+          </Button>
         </WhiteBlock>
       </div>
     </div>
