@@ -1,8 +1,13 @@
+'use client';
+
 import { CheckoutItem, CheckoutItemDetails, Container, Title, WhiteBlock } from "@/shared/components/shared";
 import { Button, Input, Textarea } from "@/shared/components/ui";
+import { useCart } from "@/shared/hooks";
 import { ArrowRight, Package, Percent, Truck } from "lucide-react";
 
 export default function CheckoutPage() {
+  const { totalAmount, updateItemQuantity, items, removeCartItem } = useCart();
+
   return <Container className="mt-10" >
     <Title text="Оформление заказа" className="font-extrabold mb-8 text-[36px]" />
 
@@ -48,7 +53,7 @@ export default function CheckoutPage() {
         <WhiteBlock className="p-6 sticky top-4" >
           <div className="flex flex-col gap-1" >
             <span className="text-xl" >Итого:</span>
-            <span className="text-[34px] font-extrabold" >3 500 ₽</span>
+            <span className="text-[34px] font-extrabold" >{totalAmount} ₽</span>
           </div>
 
           <CheckoutItemDetails title={

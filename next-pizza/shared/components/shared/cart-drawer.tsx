@@ -17,27 +17,14 @@ import { Button } from "../ui";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { CartDrawerItem } from "./cart-drawer-item";
 import { getCartItemDetails } from "@/shared/lib";
-import { useCartStore } from "@/shared/store";
 import { PizzaSize, PizzaType } from "@/shared/constants/pizza";
 import { Title } from "./title";
 import { cn } from "@/shared/lib/utils";
+import { useCart } from "@/shared/hooks";
 
-interface Props {
-  className?: string
-}
 
-export const CartDrawer: React.FC<React.PropsWithChildren<Props>> = ({ children, className }) => {
-  const [totalAmount, items, fetchCartItems, updateItemQuantity, removeCartItem] = useCartStore(state => [
-    state.totalAmount, 
-    state.items,
-    state.fetchCartItems,
-    state.updateItemQuantity,
-    state.removeCartItem,
-  ]);
-  
-  React.useEffect(() => {
-    fetchCartItems();
-  }, []);
+export const CartDrawer: React.FC<React.PropsWithChildren> = ({ children }) => {
+  const { totalAmount, updateItemQuantity, items, removeCartItem } = useCart();
 
   const onClickCountButton = (id: number, quantity: number, type: 'plus' | 'minus') => {
     const newQuantity = type === 'plus' ? quantity + 1 : quantity - 1;
