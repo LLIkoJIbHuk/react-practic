@@ -2,11 +2,18 @@
 
 import { CheckoutItem, CheckoutItemDetails, Container, Title, WhiteBlock } from "@/shared/components/shared";
 import { Button, Input, Textarea } from "@/shared/components/ui";
+import { PizzaSize, PizzaType } from "@/shared/constants/pizza";
 import { useCart } from "@/shared/hooks";
+import { getCartItemDetails } from "@/shared/lib";
 import { ArrowRight, Package, Percent, Truck } from "lucide-react";
 
 export default function CheckoutPage() {
   const { totalAmount, updateItemQuantity, items, removeCartItem } = useCart();
+
+  const onClickCountButton = (id: number, quantity: number, type: 'plus' | 'minus') => {
+    const newQuantity = type === 'plus' ? quantity + 1 : quantity - 1;
+    updateItemQuantity(id, newQuantity);
+  };
 
   return <Container className="mt-10" >
     <Title text="Оформление заказа" className="font-extrabold mb-8 text-[36px]" />
@@ -16,14 +23,22 @@ export default function CheckoutPage() {
       <div className="flex flex-col gap-10 flex-1 mb-20" >
         <WhiteBlock title="1. Корзина" >
           <div className="flex flex-col gap-5" >
-            <CheckoutItem 
-              id={0} 
-              imageUrl={"https://media.dodostatic.net/image/r:292x292/11ef9050501f3fa690a64053f5f07626.avif"} 
-              details={"Пряная говядина, пикантная пепперони, острые колбаски чоризо, соус кола-барбекю, моцарелла и фирменный томатный соус"} 
-              name={"Кола-барбекю"} 
-              price={216} 
-              quantity={3}
-            />
+            {
+              items.map((item) => (
+                <CheckoutItem
+                  key={item.id}
+                  id={item.id}
+                  imageUrl={item.imageUrl} 
+                  details={getCartItemDetails(item.ingredients, item.pizzaType as PizzaType, item.pizzaSize as PizzaSize)} 
+                  name={item.name} 
+                  price={item.price} 
+                  quantity={item.quantity}
+                  disabled={item.disabled}
+                  onClickCountButton={(type) => onClickCountButton(item.id, item.quantity, type)}
+                  onClickRemove={() => removeCartItem(item.id)}
+                />
+              ))
+            }
           </div>
         </WhiteBlock>
 

@@ -70,7 +70,7 @@ export const CartDrawer: React.FC<React.PropsWithChildren> = ({ children }) => {
                   <CartDrawerItem 
                     id={item.id} 
                     imageUrl={item.imageUrl}
-                    details={item.pizzaSize && item.pizzaType ? getCartItemDetails(item.ingredients, item.pizzaType as PizzaType, item.pizzaSize as PizzaSize) : ''} 
+                    details={getCartItemDetails(item.ingredients, item.pizzaType as PizzaType, item.pizzaSize as PizzaSize)} 
                     disabled={item.disabled}
                     name={item.name} 
                     price={item.price} 
@@ -90,7 +90,7 @@ export const CartDrawer: React.FC<React.PropsWithChildren> = ({ children }) => {
                   <div className="flex-1 border-b border-dashed border-b-neutral-200 relative -top-1 mx-2" />
                   <span className="font-bold text-lg" >{totalAmount} ₽</span>
                 </div>
-                <Link href='/cart' className="w-full h-12 text-base" >
+                <Link href='/checkout' className="w-full h-12 text-base" >
                   <Button>
                     Оформить заказ
                     <ArrowRight className="w-5 ml-2" />
