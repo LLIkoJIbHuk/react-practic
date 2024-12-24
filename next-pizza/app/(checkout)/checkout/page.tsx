@@ -1,14 +1,10 @@
 'use client';
 
-import { CheckoutItem, CheckoutItemDetails, Container, Title, WhiteBlock } from "@/shared/components/shared";
-import { Button, Input, Textarea } from "@/shared/components/ui";
+import { CheckoutItem, CheckoutSidebar, Container, Title, WhiteBlock } from "@/shared/components/shared";
+import { Input, Textarea } from "@/shared/components/ui";
 import { PizzaSize, PizzaType } from "@/shared/constants/pizza";
 import { useCart } from "@/shared/hooks";
 import { getCartItemDetails } from "@/shared/lib";
-import { ArrowRight, Package, Percent, Truck } from "lucide-react";
-
-const VAT = 15;
-const DELIVERY_PRICE = 250;
 
 export default function CheckoutPage() {
   const { totalAmount, updateItemQuantity, items, removeCartItem } = useCart();
@@ -17,9 +13,6 @@ export default function CheckoutPage() {
     const newQuantity = type === 'plus' ? quantity + 1 : quantity - 1;
     updateItemQuantity(id, newQuantity);
   };
-
-  const vatPrice = (totalAmount * VAT) / 100;
-  const totalPrice = totalAmount + vatPrice + DELIVERY_PRICE;
 
   return <Container className="mt-10" >
     <Title text="Оформление заказа" className="font-extrabold mb-8 text-[36px]" />
@@ -71,36 +64,7 @@ export default function CheckoutPage() {
 
       {/* Правая часть */}
       <div className="w-[450px]">
-        <WhiteBlock className="p-6 sticky top-4" >
-          <div className="flex flex-col gap-1" >
-            <span className="text-xl" >Итого:</span>
-            <span className="text-[34px] font-extrabold" >{totalPrice} ₽</span>
-          </div>
-
-          <CheckoutItemDetails title={
-            <div className="flex items-center" >
-              <Package size={18} className="mr-2 text-gray-300" />
-              Стоимость корзины:
-            </div>
-          } value={`${totalAmount.toFixed(2)} ₽`} />
-          <CheckoutItemDetails title={
-            <div className="flex items-center" >
-              <Percent size={18} className="mr-2 text-gray-300" />
-              Налоги
-            </div>
-          } value={`${vatPrice.toFixed(2)} ₽`} />
-          <CheckoutItemDetails title={
-            <div className="flex items-center" >
-              <Truck size={18} className="mr-2 text-gray-300" />
-              Доставка
-            </div>
-          } value={`${DELIVERY_PRICE.toFixed(2)} ₽`} />
-
-          <Button type="submit" className="w-full h-14 rounded-2xl mt-6 text-base font-bold" >
-            Перейти к оплате
-            <ArrowRight className="w-5 ml-2" />
-          </Button>
-        </WhiteBlock>
+        <CheckoutSidebar totalAmount={totalAmount} />
       </div>
     </div>
   </Container>
