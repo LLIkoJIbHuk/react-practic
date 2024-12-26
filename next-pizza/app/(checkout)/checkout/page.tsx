@@ -1,13 +1,10 @@
 'use client';
 
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CheckoutItem, CheckoutSidebar, Container, FormInput, Title, WhiteBlock } from "@/shared/components/shared";
-import { Input, Textarea } from "@/shared/components/ui";
-import { PizzaSize, PizzaType } from "@/shared/constants/pizza";
+import { CheckoutSidebar, Container, Title } from "@/shared/components/shared";
 import { useCart } from "@/shared/hooks";
-import { getCartItemDetails } from "@/shared/lib";
-import { CheckoutCart } from "@/shared/components/shared/checkout";
+import { CheckoutAddressForm, CheckoutCart, CheckoutPersonalForm } from "@/shared/components/shared/checkout";
 
 export default function CheckoutPage() {
   const { totalAmount, updateItemQuantity, items, removeCartItem } = useCart();
@@ -35,28 +32,11 @@ export default function CheckoutPage() {
     <div className="flex gap-10" >
       {/* Левая колонка */}
       <div className="flex flex-col gap-10 flex-1 mb-20" >
-
         <CheckoutCart onClickCountButton={onClickCountButton} removeCartItem={removeCartItem} items={items} />
 
-        <WhiteBlock title="2. Персональные данные" >
-          <div className="grid grid-cols-2 gap-5" >
-            <Input name="firtName" className="text-base" placeholder="Имя" />
-            <Input name="lastName" className="text-base" placeholder="Фамилия" />
-            <Input name="email" className="text-base" placeholder="Email" />
-            <FormInput name="phone" className="text-base" placeholder="Телефон" />
-          </div>
-        </WhiteBlock>
+        <CheckoutPersonalForm />
 
-        <WhiteBlock title="3. Адрес доставки" >
-          <div className="flex flex-col gap-5" >
-            <Input name="firtName" className="text-base" placeholder="Введите адрес..." />
-            <Textarea
-              className="text-base"
-              placeholder="Комментарий к заказу"
-              rows={5}
-            />
-          </div>
-        </WhiteBlock>
+        <CheckoutAddressForm />
       </div>
 
       {/* Правая часть */}
