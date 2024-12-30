@@ -22,4 +22,6 @@ export async function createOrder(data: CheckoutFormValues) {
       comment: data.comment
     }
   });
+
+  return 'google.com';
 }
