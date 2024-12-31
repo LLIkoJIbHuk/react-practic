@@ -1,7 +1,9 @@
 'use server';
 
 import { prisma } from "@/prisma/prisma-client";
+import { PayOrderTemplate } from "@/shared/components/shared/email-templates";
 import { CheckoutFormValues } from "@/shared/constants";
+import { sendEmail } from "@/shared/lib";
 import { OrderStatus } from "@prisma/client";
 import { cookies } from "next/headers";
 
@@ -74,8 +76,13 @@ export async function createOrder(data: CheckoutFormValues) {
         cartId: userCart.id,
       },
     });
-
+    
+    await sendEmail(data.email, 'Next Pizza | Оплатите заказ #' + order.id, PayOrderTemplate({
+      orderId: order.id,
+      totalAmount: order.totalAmount,
+      paymentUrl: 'https://next-pizza.vercel.app/checkout/',
+    }));
   } catch (err) {
-    console.log(err);
+    console.log('[CreateOrder] Server error', err);
   }
 }
