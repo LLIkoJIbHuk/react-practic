@@ -3,7 +3,7 @@
 import { prisma } from "@/prisma/prisma-client";
 import { PayOrderTemplate } from "@/shared/components/shared/email-templates";
 import { CheckoutFormValues } from "@/shared/constants";
-import { sendEmail } from "@/shared/lib";
+import { createPayment, sendEmail } from "@/shared/lib";
 import { OrderStatus } from "@prisma/client";
 import { cookies } from "next/headers";
 
@@ -77,11 +77,34 @@ export async function createOrder(data: CheckoutFormValues) {
       },
     });
     
+    const paymentData = await createPayment({
+      amount: order.totalAmount,
+      orderId: order.id,
+      description: 'Заказ No' + order.id,
+    });
+
+    if (!paymentData) {
+      throw new Error('Ошибка при создании платежа');
+    }
+
+    await prisma.order.update({
+      where: {
+        id: order.id,
+      },
+      data: {
+        paymentId: paymentData.id,
+      },
+    });
+
+    const paymentUrl = paymentData.confirmation.confirmation_url
+
     await sendEmail(data.email, 'Next Pizza | Оплатите заказ #' + order.id, PayOrderTemplate({
       orderId: order.id,
       totalAmount: order.totalAmount,
-      paymentUrl: 'https://next-pizza.vercel.app/checkout/',
+      paymentUrl,
     }));
+
+    return paymentUrl;
   } catch (err) {
     console.log('[CreateOrder] Server error', err);
   }
