@@ -6,7 +6,7 @@ interface Props {
   paymentUrl: string;
 }
 
-export const PayOrderTemplate: React.FC<Props> = ({ orderId, totalAmount, paymentUrl }) => {
+export const PayOrderTemplate: React.FC<Props> = ({ orderId, totalAmount, paymentUrl }) => (
   <div>
     <h1>Заказ #{orderId}</h1>
 
@@ -14,4 +14,4 @@ export const PayOrderTemplate: React.FC<Props> = ({ orderId, totalAmount, paymen
       Оплатите заказ на сумму {totalAmount} ₽. Перейдите <a href={paymentUrl} >по этой ссылке</a> для оплаты заказа.
     </p>
   </div>
-}
+)
