@@ -26,10 +26,11 @@ export async function createPayment(details: any) {
       }
     }, {
       auth: {
-        username: process.env.YOOKASSA_API_KEY as string,
-        password: '',
+        username: process.env.YOOKASSA_STORE_ID as string, //id магазина
+        password: process.env.YOOKASSA_API_KEY as string,
       },
       headers: {
+        'Content-Type': 'application/json',
         'Idempotency-Key': Math.random().toString(36).substring(7),
       }
     }
