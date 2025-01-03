@@ -1,5 +1,4 @@
 import { Nunito } from "next/font/google";
-import { Toaster } from 'react-hot-toast';
 
 import "./globals.css";
 
@@ -21,7 +20,7 @@ export default function RootLayout({
       </head>
       <body className={nunito.className}>
         {children}
-        <Toaster />
+        
       </body>
     </html>
   );
