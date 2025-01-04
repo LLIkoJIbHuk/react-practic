@@ -2,10 +2,8 @@
 
 import { cn } from '@/shared/lib/utils';
 import React from 'react';
-import { CartButton, Container, SearchInput } from '.';
+import { CartButton, Container, ProfileButton, SearchInput } from '.';
 import Image from 'next/image';
-import { Button } from '../ui';
-import { User } from 'lucide-react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import toast from 'react-hot-toast';
@@ -44,14 +42,9 @@ export const Header: React.FC<Props> = ({hasSearch = true, hasCart = true, class
 
         {/*Правая часть*/}
         <div className='flex items-center gap-3' >
-          <Button variant='outline' className='flex icons-center gap-1' >
-            <User size={16} />
-            Войти
-          </Button>
-
-          <div>
-            {hasCart && <CartButton />}
-          </div>
+          <ProfileButton/>
+          
+          {hasCart && <CartButton />}
         </div>
       </Container>
     </header>
