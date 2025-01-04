@@ -2,7 +2,7 @@
 
 import { cn } from '@/shared/lib/utils';
 import React from 'react';
-import { CartButton, Container, ProfileButton, SearchInput } from '.';
+import { AuthModal, CartButton, Container, ProfileButton, SearchInput } from '.';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
@@ -15,6 +15,8 @@ interface Props{
 }
 
 export const Header: React.FC<Props> = ({hasSearch = true, hasCart = true, className}) => {
+  const [openAuthModal, setOpenAuthModal] = React.useState(false);
+
   const searchParams = useSearchParams();
 
   React.useEffect(() => {
@@ -42,7 +44,9 @@ export const Header: React.FC<Props> = ({hasSearch = true, hasCart = true, class
 
         {/*Правая часть*/}
         <div className='flex items-center gap-3' >
-          <ProfileButton/>
+          <AuthModal open={openAuthModal} onClose={() => setOpenAuthModal(false)} />
+
+          <ProfileButton onClickSignIn={() => setOpenAuthModal(true)} />
           
           {hasCart && <CartButton />}
         </div>
