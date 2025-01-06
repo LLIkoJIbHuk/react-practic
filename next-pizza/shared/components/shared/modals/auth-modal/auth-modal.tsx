@@ -9,6 +9,12 @@ interface Props {
 }
 
 export const AuthModal: React.FC<Props> = ({ open, onClose }) => {
+  const [type, setType] = React.useState<'login' | 'register'>('login');
+
+  const onSwitchType = () => {
+    setType(type === 'login' ? 'register' : 'login');
+  }
+
   const handleClose = () => {
     onClose();
   };
@@ -47,7 +53,9 @@ export const AuthModal: React.FC<Props> = ({ open, onClose }) => {
             GitHub          
           </Button>
         </div>
-        
+        <Button variant='outline' onClick={onSwitchType} type='button' className='h-12' >
+          {type === 'login' ? 'Зарегистрироваться' : 'Войти'}
+        </Button>
       </DialogContent>
     </Dialog>
   );

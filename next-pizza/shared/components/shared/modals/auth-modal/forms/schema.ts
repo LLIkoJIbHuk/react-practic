@@ -11,10 +11,14 @@ export const formRegisterSchema = formLoginSchema
   .merge(
     z.object({
       fullName: z.string().min(2, { message: 'Введите имя и фамилию' }),
-      confirmPassword: z.string().min(6, { message: 'Пароль должен содержать не менее 6 символов' }),
+      confirmPassword: passwordSchema,
     }),
   )
+  //каждый раз при валидации, проверяем, что пароли совпадают
   .refine((data) => data.password === data.confirmPassword, {
     message: 'Пароли не совпадают',
     path: ['confirmPassword'],
   });
+
+export type TFormLoginValues = z.infer<typeof formLoginSchema>;
+export type TFormRegisterValues = z.infer<typeof formRegisterSchema>;
