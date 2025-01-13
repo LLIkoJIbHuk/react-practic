@@ -52,7 +52,7 @@ export const RegisterForm: React.FC<Props> = ({ onClose, onClickLogin }) => {
         <FormInput name="password" label="Пароль" type="password" required />
         <FormInput name="confirmPassword" label="Подтвердите пароль" type="password" required />
 
-        <Button disabled={form.formState.isSubmitting} className="h-12 text-base" type="submit">
+        <Button loading={form.formState.isSubmitting} className="h-12 text-base" type="submit">
           Зарегистрироваться
         </Button>
       </form>

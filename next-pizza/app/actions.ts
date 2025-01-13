@@ -2,6 +2,7 @@
 
 import { prisma } from "@/prisma/prisma-client";
 import { PayOrderTemplate } from "@/shared/components/shared/email-templates";
+import { VerificationUserTemplate } from "@/shared/components/shared/email-templates/verification-user";
 import { CheckoutFormValues } from "@/shared/constants";
 import { createPayment, sendEmail } from "@/shared/lib";
 import { getUserSession } from "@/shared/lib/get-user-session";
@@ -173,18 +174,16 @@ export async function registerUser(body: Prisma.UserCreateInput) {
       data: {
         code,
         userId: createdUser.id,
-        expiresAt: new Date(Date.now() + 10 * 60 * 1000),
       },
     });
 
-    console.log(createdUser);
-
-    const html = `
-    <p>Код подтверждения: <h2>${code}</h2></p>
-    <p><a href="http://localhost:3000/api/auth/verify?code=${code}">Подтвердить регистрацию</a></p>
-    `;
-
-    await sendEmail(createdUser.email, 'Next Pizza / Подтверждение регистрации', html);
+    await sendEmail(
+      createdUser.email,
+      'Next Pizza | Подтверждение почты',
+      VerificationUserTemplate({
+        code,
+      }),
+    );
   } catch (error) {
     console.log('Error [CREATE_USER]', error);
     throw error;
