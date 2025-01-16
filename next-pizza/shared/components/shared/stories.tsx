@@ -2,12 +2,9 @@
 
 import React from 'react';
 import { Container } from './container';
-import { cn } from '@/lib/utils';
-import ReactStories from 'react-insta-stories';
-import { Api } from '@/services/api-client';
-import { Story, StoryItem } from '@prisma/client';
-import { IStory } from '@/services/stories';
 import { X } from 'lucide-react';
+import { Api } from '@/shared/services/api-client';
+import { IStory } from '@/shared/services/stories';
 
 interface Props {
   className?: string;
@@ -15,7 +12,9 @@ interface Props {
 
 export const Stories: React.FC<Props> = ({ className }) => {
   const [stories, setStories] = React.useState<IStory[]>([]);
+  //состояние открытия сториса
   const [open, setOpen] = React.useState(false);
+  //какой именно сторис открыт
   const [selectedStory, setSelectedStory] = React.useState<IStory>();
 
   React.useEffect(() => {
