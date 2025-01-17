@@ -5,6 +5,7 @@ import { Container } from './container';
 import { X } from 'lucide-react';
 import { Api } from '@/shared/services/api-client';
 import { IStory } from '@/shared/services/stories';
+import { cn } from '@/shared/lib/utils';
 
 interface Props {
   className?: string;
@@ -26,6 +27,7 @@ export const Stories: React.FC<Props> = ({ className }) => {
     fetchStories();
   }, []);
 
+  //открытие сториса
   const onClickStory = (story: IStory) => {
     setSelectedStory(story);
 
