@@ -1,11 +1,14 @@
 import { prisma } from "@/prisma/prisma-client";
-import { getUserSession } from "@/shared/lib/get-user-session";
+import { authOptions } from "@/shared/constants/auth-options";
+import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 
-export async function GET() {
+export const dynamic = 'force-dynamic';
+
+export async function GET(req: any, res: any) {
   try {
     //проверка на авторизацию
-    const user = await getUserSession();
+    const user = (await getServerSession(req, res, authOptions)) as any;
 
     if (!user) {
       return NextResponse.json({ message: 'Вы не авторизованы' }, { status: 401 });
